@@ -1,28 +1,84 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-consufin-transaction-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   template: `
     <div class="min-h-screen bg-gray-50 p-6">
       <div class="max-w-4xl mx-auto bg-white rounded-xl shadow p-6">
         <h2 class="text-2xl font-bold text-gray-900 mb-4">Transacción • Detalle</h2>
 
         <div class="mb-6">
-          <h3 class="font-semibold text-gray-900 mb-2">Comparte con QR</h3>
-          <div class="flex items-center gap-6 flex-wrap">
-            <img [src]="qrSrc" alt="QR" class="h-40 w-40 border rounded" />
-            <div class="text-sm text-gray-700">
-              <div class="mb-2">Enlace: <a [href]="transactionLink" class="text-indigo-600 break-all">{{ transactionLink }}</a></div>
-              <div class="flex gap-3">
-                <a [href]="'mailto:?subject=Transacción%20CONSUFIN&body=' + encodeURIComponent(transactionLink)" class="px-3 py-1.5 border rounded">Email</a>
-                <a [href]="'https://wa.me/?text=' + encodeURIComponent(transactionLink)" target="_blank" class="px-3 py-1.5 border rounded">WhatsApp</a>
-                <button (click)="copy()" class="px-3 py-1.5 border rounded">Copiar link</button>
+          <h3 class="font-semibold text-gray-900 mb-2">Código QR para compartir</h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="flex items-center gap-6">
+              <img [src]="qrSrc" alt="QR" class="h-40 w-40 border rounded" />
+              <div class="text-sm text-gray-700">
+                <div class="mb-2">Enlace: <a [href]="transactionLink" class="text-indigo-600 break-all">{{ transactionLink }}</a></div>
+                <div class="flex gap-3 flex-wrap">
+                  <a [href]="'mailto:?subject=Transacción%20CONSUFIN&body=' + encodeURIComponent(transactionLink)" class="px-3 py-1.5 border rounded">Email</a>
+                  <a [href]="'https://wa.me/?text=' + encodeURIComponent(transactionLink)" target="_blank" class="px-3 py-1.5 border rounded">WhatsApp</a>
+                  <button (click)="copy()" class="px-3 py-1.5 border rounded">Copiar link</button>
+                </div>
               </div>
             </div>
+            <div>
+              <label class="block text-sm text-gray-700 mb-1">Modo de QR</label>
+              <select class="w-full border rounded px-3 py-2 mb-3" [(ngModel)]="qrMode">
+                <option value="public">Público (para brochures/anuncios)</option>
+                <option value="restricted">Restringido a correo/teléfono</option>
+              </select>
+              <div *ngIf="qrMode==='restricted'" class="grid grid-cols-1 gap-3">
+                <input class="border rounded px-3 py-2" placeholder="Correo permitido (opcional)" [(ngModel)]="allowedEmail" />
+                <input class="border rounded px-3 py-2" placeholder="Teléfono permitido (10 dígitos, opcional)" [(ngModel)]="allowedPhone" />
+                <button (click)="regenerateQR()" class="px-3 py-2 bg-indigo-600 text-white rounded">Generar QR restringido</button>
+                <p class="text-xs text-gray-500">Solo el propietario del medio podrá abrir el enlace.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-900 mb-2">Método de distribución del pago</h3>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-sm text-gray-700 mb-1">Esquema</label>
+              <select class="w-full border rounded px-3 py-2" [(ngModel)]="distribution">
+                <option>Liquidación total</option>
+                <option>Anticipo + liquidación</option>
+                <option>Parcialidades</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm text-gray-700 mb-1">Referencia SPEI/SWIFT</label>
+              <input class="w-full border rounded px-3 py-2" placeholder="CLABE / SWIFT" [(ngModel)]="paymentRef" />
+            </div>
+            <div>
+              <label class="block text-sm text-gray-700 mb-1">Cuenta destino</label>
+              <input class="w-full border rounded px-3 py-2" placeholder="Banco / Cuenta" [(ngModel)]="beneficiary" />
+            </div>
+          </div>
+          <div class="mt-4 overflow-x-auto text-sm">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-3 py-2 text-left">Fecha</th>
+                  <th class="px-3 py-2 text-left">Concepto</th>
+                  <th class="px-3 py-2 text-left">Monto</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y">
+                <tr *ngFor="let row of schedule">
+                  <td class="px-3 py-2">{{ row.date }}</td>
+                  <td class="px-3 py-2">{{ row.concept }}</td>
+                  <td class="px-3 py-2">{{ row.amount }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -55,6 +111,16 @@ import { RouterModule } from '@angular/router';
 export class ConsufinTransactionDetailComponent {
   transactionLink = '';
   qrSrc = '';
+  qrMode: 'public' | 'restricted' = 'public';
+  allowedEmail = '';
+  allowedPhone = '';
+  distribution = 'Liquidación total';
+  paymentRef = '';
+  beneficiary = '';
+  schedule = [
+    { date: 'Día 0', concept: 'Depósito a custodia', amount: '—' },
+    { date: 'Día N', concept: 'Liberación tras aprobación', amount: '—' }
+  ];
   constructor() {
     try {
       const raw = sessionStorage.getItem('lastTransaction');
@@ -67,10 +133,21 @@ export class ConsufinTransactionDetailComponent {
     } catch {
       this.transactionLink = location.href;
     }
-    this.qrSrc = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(this.transactionLink);
+    this.qrSrc = this.buildQR(this.transactionLink);
   }
   async copy() {
     try { await navigator.clipboard.writeText(this.transactionLink); } catch {}
+  }
+  regenerateQR() {
+    const url = new URL(this.transactionLink);
+    url.searchParams.set('qrMode', this.qrMode);
+    if (this.allowedEmail) url.searchParams.set('allowEmail', this.allowedEmail);
+    if (this.allowedPhone) url.searchParams.set('allowPhone', this.allowedPhone);
+    this.transactionLink = url.toString();
+    this.qrSrc = this.buildQR(this.transactionLink);
+  }
+  buildQR(data: string): string {
+    return 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(data);
   }
 }
 
