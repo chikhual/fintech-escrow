@@ -105,12 +105,7 @@ import { RouterModule } from '@angular/router';
           <div class="mt-3 text-xs text-gray-600">Paso {{ currentStep + 1 }} de {{ steps.length }}</div>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-4 mb-6">
-          <button class="px-4 py-2 border rounded">Aceptar / Rechazar</button>
-          <button class="px-4 py-2 border rounded">Depositar fondos</button>
-          <button class="px-4 py-2 border rounded">Subir evidencia de envío/entrega</button>
-          <button class="px-4 py-2 border rounded">Aprobar / Disputar</button>
-        </div>
+        
 
         <div class="bg-gray-50 rounded p-4 text-sm text-gray-700">
           Notificaciones: correo y recordatorios automáticos para acelerar el flujo.
