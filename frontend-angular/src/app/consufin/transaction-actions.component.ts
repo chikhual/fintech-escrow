@@ -29,14 +29,51 @@ import { RouterModule } from '@angular/router';
         </div>
 
         <div class="grid md:grid-cols-2 gap-4 mb-6">
-          <button class="px-4 py-3 border rounded">Aceptar / Rechazar</button>
-          <button class="px-4 py-3 border rounded">Depositar fondos</button>
-          <button class="px-4 py-3 border rounded">Subir evidencia de envío/entrega</button>
-          <button class="px-4 py-3 border rounded">Aprobar / Disputar</button>
+          <button *ngIf="isBuyer" (click)="openAcceptReject()" class="px-4 py-3 border rounded">Aceptar / Rechazar</button>
+          <button [disabled]="!accepted" (click)="deposit()" class="px-4 py-3 border rounded disabled:opacity-50">Depositar fondos</button>
+          <button *ngIf="isSeller" (click)="openUpload('envio')" class="px-4 py-3 border rounded">Subir evidencia de envío</button>
+          <button (click)="openUpload('entrega')" class="px-4 py-3 border rounded">Subir evidencia de entrega</button>
+          <button *ngIf="deliveryConfirmed" (click)="openApproveDispute()" class="px-4 py-3 border rounded md:col-span-2">Aprobar / Disputar</button>
         </div>
 
         <div class="flex justify-end">
-          <a routerLink="/consufin/transaccion/preview#details" class="px-4 py-2 bg-indigo-600 text-white rounded">Continuar a distribución</a>
+          <a [class.opacity-50]="!deposited" [class.pointer-events-none]="!deposited" routerLink="/consufin/transaccion/preview#details" class="px-4 py-2 bg-indigo-600 text-white rounded">Continuar a distribución</a>
+        </div>
+
+        <!-- Modal: Subir evidencia -->
+        <div *ngIf="showUpload" class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
+          <div class="bg-white rounded-xl shadow p-6 w-full max-w-md">
+            <h3 class="font-semibold text-gray-900 mb-3">Subir evidencia de {{ uploadType==='envio' ? 'envío' : 'entrega' }}</h3>
+            <input type="file" class="mb-3" />
+            <textarea class="w-full border rounded px-3 py-2 mb-4" rows="3" placeholder="Notas"></textarea>
+            <div class="flex justify-end gap-3">
+              <button (click)="closeModals()" class="px-4 py-2 border rounded">Cancelar</button>
+              <button (click)="confirmUpload()" class="px-4 py-2 bg-emerald-600 text-white rounded">Guardar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal: Aceptar/Rechazar -->
+        <div *ngIf="showAcceptReject" class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
+          <div class="bg-white rounded-xl shadow p-6 w-full max-w-md">
+            <h3 class="font-semibold text-gray-900 mb-4">Confirmar operación</h3>
+            <p class="text-sm text-gray-600 mb-4">¿Se efectuó de forma satisfactoria?</p>
+            <div class="flex justify-end gap-3">
+              <button (click)="reject()" class="px-4 py-2 border rounded">Rechazar</button>
+              <button (click)="accept()" class="px-4 py-2 bg-emerald-600 text-white rounded">Aceptar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal: Aprobar/Disputar -->
+        <div *ngIf="showApproveDispute" class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
+          <div class="bg-white rounded-xl shadow p-6 w-full max-w-md">
+            <h3 class="font-semibold text-gray-900 mb-4">Revisión de entrega</h3>
+            <div class="flex justify-end gap-3">
+              <button (click)="dispute()" class="px-4 py-2 border rounded">Disputar</button>
+              <button (click)="approve()" class="px-4 py-2 bg-emerald-600 text-white rounded">Aprobar</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -44,8 +81,49 @@ import { RouterModule } from '@angular/router';
   styles: []
 })
 export class ConsufinTransactionActionsComponent {
-  steps = ['Acuerdo', 'Pago', 'Transferencia/Entrega', 'Inspección', 'Cierre'];
+  // Orden solicitado
+  steps = ['Acuerdo', 'Envío', 'Inspección', 'Pago', 'Cierre'];
   currentStep = 0;
+  role: 'Comprador' | 'Vendedor' | 'Broker' = 'Comprador';
+  get isBuyer() { return this.role === 'Comprador'; }
+  get isSeller() { return this.role === 'Vendedor'; }
+
+  showUpload = false;
+  uploadType: 'envio' | 'entrega' = 'entrega';
+  showAcceptReject = false;
+  showApproveDispute = false;
+
+  accepted = false;
+  deposited = false;
+  deliveryConfirmed = false;
+
+  constructor() {
+    try {
+      const raw = sessionStorage.getItem('lastTransaction');
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (data.role) this.role = data.role;
+      }
+    } catch {}
+  }
+
+  openUpload(type: 'envio' | 'entrega') {
+    this.uploadType = type;
+    this.showUpload = true;
+  }
+  confirmUpload() {
+    this.showUpload = false;
+    if (this.uploadType === 'envio') this.currentStep = Math.max(this.currentStep, 1);
+    if (this.uploadType === 'entrega') { this.deliveryConfirmed = true; this.currentStep = Math.max(this.currentStep, 2); }
+  }
+  openAcceptReject() { this.showAcceptReject = true; }
+  accept() { this.accepted = true; this.showAcceptReject = false; this.currentStep = Math.max(this.currentStep, 3); }
+  reject() { location.assign('/consufin/transaccion/rechazo'); }
+  deposit() { this.deposited = true; this.currentStep = Math.max(this.currentStep, 3); }
+  openApproveDispute() { this.showApproveDispute = true; }
+  approve() { this.showApproveDispute = false; this.currentStep = Math.max(this.currentStep, 4); }
+  dispute() { this.showApproveDispute = false; location.assign('/consufin/transaccion/disputa'); }
+  closeModals() { this.showUpload = this.showAcceptReject = this.showApproveDispute = false; }
 }
 
 
