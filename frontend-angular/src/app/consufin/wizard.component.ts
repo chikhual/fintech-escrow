@@ -24,12 +24,11 @@ import { RouterModule } from '@angular/router';
             <div>
               <label class="block text-sm text-gray-700 mb-1">Moneda</label>
               <select class="w-full border rounded px-3 py-2">
-                <option>USD</option>
-                <option>EUR</option>
-                <option>GBP</option>
-                <option>AUD</option>
-                <option>CAD</option>
+                <option>Dolar USA</option>
+                <option>Dolar CAN</option>
+                <option>Libra UK</option>
                 <option>Peso MX</option>
+                <option>Euro EUR</option>
               </select>
             </div>
             <div>
@@ -99,7 +98,7 @@ import { RouterModule } from '@angular/router';
 
           <div class="flex items-center gap-3">
             <input id="terms" type="checkbox" class="h-4 w-4" />
-            <label for="terms" class="text-sm text-gray-700">Acepto Términos, Instrucciones de ESCROW y Aviso de Privacidad.</label>
+            <label for="terms" class="text-sm text-gray-700">Acepto Términos, Instrucciones de CONSUFIN y Aviso de Privacidad.</label>
           </div>
 
           <div class="flex justify-end gap-3">
