@@ -83,14 +83,23 @@ import { RouterModule } from '@angular/router';
         </div>
 
         <div class="mb-6">
-          <h3 class="font-semibold text-gray-900 mb-2">Línea de tiempo</h3>
-          <ol class="list-decimal ml-5 text-gray-700 space-y-1">
-            <li>Acuerdo de términos</li>
-            <li>Depósito en custodia (ESCROW)</li>
-            <li>Entrega / Evidencias</li>
-            <li>Aprobación del comprador</li>
-            <li>Liberación de fondos</li>
-          </ol>
+          <h3 class="font-semibold text-gray-900 mb-4">Línea de tiempo</h3>
+          <div class="flex items-center justify-between gap-2">
+            <ng-container *ngFor="let s of steps; let i = index">
+              <div class="flex-1 flex items-center">
+                <div class="flex items-center">
+                  <div [ngClass]="{
+                        'bg-emerald-600 text-white': currentStep > i,
+                        'bg-indigo-600 text-white': currentStep === i,
+                        'bg-gray-200 text-gray-700': currentStep < i
+                      }" class="h-8 w-8 rounded-full flex items-center justify-center text-sm font-medium"></div>
+                  <span class="ml-2 text-sm" [ngClass]="currentStep >= i ? 'text-gray-900' : 'text-gray-500'">{{ s }}</span>
+                </div>
+                <div *ngIf="i < steps.length - 1" class="h-1 flex-1 mx-2" [ngClass]="currentStep > i ? 'bg-emerald-600' : 'bg-gray-200'"></div>
+              </div>
+            </ng-container>
+          </div>
+          <div class="mt-3 text-xs text-gray-600">Paso {{ currentStep + 1 }} de {{ steps.length }}</div>
         </div>
 
         <div class="grid md:grid-cols-2 gap-4 mb-6">
@@ -117,6 +126,8 @@ export class ConsufinTransactionDetailComponent {
   distribution = 'Liquidación total';
   paymentRef = '';
   beneficiary = '';
+  steps = ['Acuerdo', 'Pago', 'Transferencia/Entrega', 'Inspección', 'Cierre'];
+  currentStep = 0;
   schedule = [
     { date: 'Día 0', concept: 'Depósito a custodia', amount: '—' },
     { date: 'Día N', concept: 'Liberación tras aprobación', amount: '—' }
