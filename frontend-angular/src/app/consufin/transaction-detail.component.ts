@@ -20,8 +20,8 @@ import { RouterModule } from '@angular/router';
               <div class="text-sm text-gray-700">
                 <div class="mb-2">Enlace: <a [href]="transactionLink" class="text-indigo-600 break-all">{{ transactionLink }}</a></div>
                 <div class="flex gap-3 flex-wrap">
-                  <a [href]="'mailto:?subject=Transacción%20CONSUFIN&body=' + encodeURIComponent(transactionLink)" class="px-3 py-1.5 border rounded">Email</a>
-                  <a [href]="'https://wa.me/?text=' + encodeURIComponent(transactionLink)" target="_blank" class="px-3 py-1.5 border rounded">WhatsApp</a>
+                  <a [href]="'mailto:?subject=Transacción%20CONSUFIN&body=' + encode(transactionLink)" class="px-3 py-1.5 border rounded">Email</a>
+                  <a [href]="'https://wa.me/?text=' + encode(transactionLink)" target="_blank" class="px-3 py-1.5 border rounded">WhatsApp</a>
                   <button (click)="copy()" class="px-3 py-1.5 border rounded">Copiar link</button>
                 </div>
               </div>
@@ -138,6 +138,7 @@ export class ConsufinTransactionDetailComponent {
   async copy() {
     try { await navigator.clipboard.writeText(this.transactionLink); } catch {}
   }
+  encode(value: string): string { return encodeURIComponent(value); }
   regenerateQR() {
     const url = new URL(this.transactionLink);
     url.searchParams.set('qrMode', this.qrMode);
