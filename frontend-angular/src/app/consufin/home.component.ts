@@ -83,6 +83,98 @@ import { RouterModule } from '@angular/router';
           </div>
         </section>
 
+        <!-- Proceso en 5 pasos (según imagen de referencia) -->
+        <section class="bg-white rounded-xl shadow p-8 mb-12">
+          <p class="text-gray-800 text-center mb-8">
+            La página despliega una visualización del proceso por medio de íconos. Así funciona el ESCROW:
+          </p>
+          <div class="grid grid-cols-5 gap-6 items-start text-center">
+            <div>
+              <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
+                <span class="text-emerald-600 text-2xl">1</span>
+              </div>
+              <p class="mt-3 text-xs text-gray-700">Buyer y Seller acuerdan términos</p>
+            </div>
+            <div>
+              <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
+                <span class="text-emerald-600 text-2xl">2</span>
+              </div>
+              <p class="mt-3 text-xs text-gray-700">Buyer deposita el pago en Escrow</p>
+            </div>
+            <div>
+              <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
+                <span class="text-emerald-600 text-2xl">3</span>
+              </div>
+              <p class="mt-3 text-xs text-gray-700">Seller entrega bienes o servicios</p>
+            </div>
+            <div>
+              <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
+                <span class="text-emerald-600 text-2xl">4</span>
+              </div>
+              <p class="mt-3 text-xs text-gray-700">Buyer aprueba la recepción</p>
+            </div>
+            <div>
+              <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
+                <span class="text-emerald-600 text-2xl">5</span>
+              </div>
+              <p class="mt-3 text-xs text-gray-700">Escrow libera fondos al Seller</p>
+            </div>
+          </div>
+          <div class="mt-8 flex flex-col items-center gap-3">
+            <a routerLink="/consufin/transaccion/nueva" class="px-5 py-2.5 bg-emerald-600 text-white rounded">Comenzar ahora</a>
+            <a routerLink="/consufin/faq" class="text-xs text-emerald-700">Aprender más sobre ESCROW</a>
+          </div>
+        </section>
+
+        <!-- Features grid (alternativa de diseño tipo heroicons) -->
+        <section class="bg-white rounded-xl shadow p-8 mb-12">
+          <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-sm font-semibold text-indigo-600">Seguridad y rapidez</h2>
+            <p class="mt-2 text-3xl font-semibold text-gray-900">Todo lo que necesitas para operar con confianza</p>
+            <p class="mt-4 text-gray-700">Custodia, validación, notificaciones y un panel claro de estado para ambas partes.</p>
+          </div>
+          <div class="mx-auto mt-10 max-w-4xl">
+            <dl class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div class="relative pl-12">
+                <dt class="font-semibold text-gray-900">
+                  <div class="absolute left-0 top-0 h-9 w-9 rounded-lg bg-indigo-600 flex items-center justify-center">
+                    <span class="text-white">↑</span>
+                  </div>
+                  Depósitos seguros
+                </dt>
+                <dd class="mt-2 text-gray-700">Fondos en custodia con trazabilidad y liberación bilateral.</dd>
+              </div>
+              <div class="relative pl-12">
+                <dt class="font-semibold text-gray-900">
+                  <div class="absolute left-0 top-0 h-9 w-9 rounded-lg bg-indigo-600 flex items-center justify-center">
+                    <span class="text-white">🔒</span>
+                  </div>
+                  Certificados y cifrado
+                </dt>
+                <dd class="mt-2 text-gray-700">Buenas prácticas de seguridad y verificación de identidad.</dd>
+              </div>
+              <div class="relative pl-12">
+                <dt class="font-semibold text-gray-900">
+                  <div class="absolute left-0 top-0 h-9 w-9 rounded-lg bg-indigo-600 flex items-center justify-center">
+                    <span class="text-white">↻</span>
+                  </div>
+                  Flujo simple
+                </dt>
+                <dd class="mt-2 text-gray-700">Pasos claros de acuerdo, depósito, entrega, aprobación y pago.</dd>
+              </div>
+              <div class="relative pl-12">
+                <dt class="font-semibold text-gray-900">
+                  <div class="absolute left-0 top-0 h-9 w-9 rounded-lg bg-indigo-600 flex items-center justify-center">
+                    <span class="text-white">🖐</span>
+                  </div>
+                  Seguridad avanzada
+                </dt>
+                <dd class="mt-2 text-gray-700">Auditoría, KYC/AML y evidencias para minimizar riesgos.</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
         <section class="bg-white rounded-xl shadow p-6 mb-12">
           <h3 class="font-semibold text-gray-900 mb-4">Opciones de inicio</h3>
           <div class="grid sm:grid-cols-3 gap-4">
