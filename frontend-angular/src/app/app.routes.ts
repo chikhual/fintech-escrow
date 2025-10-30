@@ -17,6 +17,7 @@ import { UserSettingsComponent } from './consufin/settings.component';
 import { ConsufinTransactionActionsComponent } from './consufin/transaction-actions.component';
 import { ConsufinRejectComponent } from './consufin/reject.component';
 import { ConsufinDisputeComponent } from './consufin/dispute.component';
+import { RoleCenterComponent } from './consufin/role-center.component';
 
 export const routes: Routes = [
   { path: '', component: TaskDashboardComponent },
@@ -38,5 +39,6 @@ export const routes: Routes = [
   { path: 'consufin/validacion', component: ConsufinKycComponent },
   { path: 'consufin/integraciones', component: ConsufinIntegrationsComponent },
   { path: 'consufin/settings', component: UserSettingsComponent },
+  { path: 'consufin/roles', component: RoleCenterComponent },
   { path: '**', redirectTo: '' }
 ];

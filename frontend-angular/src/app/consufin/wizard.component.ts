@@ -45,6 +45,21 @@ import { FormsModule } from '@angular/forms';
                 <option>50% - 50%</option>
                 <option>Personalizar</option>
               </select>
+            <div *ngIf="feePayer==='Personalizar'" class="mt-2 text-sm bg-gray-50 border rounded p-3">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="md:col-span-2">
+                  <label class="block mb-1 text-gray-700">Otra parte</label>
+                  <select class="w-full border rounded px-3 py-2" [(ngModel)]="customOtherRole" [ngModelOptions]="{standalone: true}">
+                    <option *ngFor="let opt of counterpartyOptions" [value]="opt">{{ opt }}</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block mb-1 text-gray-700">% que paga {{ role }}</label>
+                  <input type="number" min="0" max="100" class="w-full border rounded px-3 py-2" [(ngModel)]="customPercentSelf" [ngModelOptions]="{standalone: true}" (input)="recalcPercent()" />
+                  <p class="text-xs text-gray-500 mt-1">{{ customPercentOther }}% lo paga {{ customOtherRole }}</p>
+                </div>
+              </div>
+            </div>
             </div>
           </div>
 
@@ -122,6 +137,9 @@ export class ConsufinWizardComponent {
   currency = '';
   inspectionDays: number | null = 5;
   feePayer = '';
+  customOtherRole = '';
+  customPercentSelf: number | null = null;
+  customPercentOther = 0;
   category = '';
   amount: number | null = null;
   title = '';
@@ -130,10 +148,22 @@ export class ConsufinWizardComponent {
   counterpartyPhone = '';
   accepted = false;
 
+  get counterpartyOptions(): string[] {
+    if (this.role === 'Vendedor') return ['Comprador', 'Broker'];
+    if (this.role === 'Comprador') return ['Vendedor', 'Broker'];
+    if (this.role === 'Broker') return ['Vendedor', 'Comprador'];
+    return [];
+  }
+  recalcPercent() {
+    const s = Number(this.customPercentSelf ?? 0);
+    this.customPercentOther = Math.max(0, Math.min(100, 100 - s));
+  }
+
   isValid(): boolean {
     const emailOk = /.+@.+\..+/.test(this.counterpartyEmail);
     const phoneOk = /^\d{10}$/.test(this.counterpartyPhone);
-    return !!this.role && !!this.currency && !!this.feePayer && !!this.category &&
+    const customOk = this.feePayer !== 'Personalizar' || ((this.customPercentSelf ?? -1) >= 0 && (this.customPercentSelf ?? -1) <= 100 && this.customPercentOther >= 0 && (this.customPercentSelf ?? 0) + this.customPercentOther === 100 && !!this.customOtherRole);
+    return !!this.role && !!this.currency && !!this.feePayer && customOk && !!this.category &&
       !!this.title && !!this.description && emailOk && phoneOk &&
       this.accepted && (this.amount ?? 0) > 0 && (this.inspectionDays ?? 0) >= 5;
   }
@@ -148,6 +178,7 @@ export class ConsufinWizardComponent {
       currency: this.currency,
       inspectionDays: this.inspectionDays,
       feePayer: this.feePayer,
+      custom: this.feePayer==='Personalizar' ? { selfRole: this.role, otherRole: this.customOtherRole, selfPercent: this.customPercentSelf, otherPercent: this.customPercentOther } : undefined,
       category: this.category,
       amount: this.amount,
       title: this.title,
