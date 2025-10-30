@@ -14,6 +14,7 @@ import { ConsufinContactComponent } from './consufin/contact.component';
 import { ConsufinKycComponent } from './consufin/kyc.component';
 import { ConsufinIntegrationsComponent } from './consufin/integrations.component';
 import { UserSettingsComponent } from './consufin/settings.component';
+import { ConsufinTransactionActionsComponent } from './consufin/transaction-actions.component';
 
 export const routes: Routes = [
   { path: '', component: TaskDashboardComponent },
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'consufin/registro', component: ConsufinAuthComponent },
   { path: 'consufin/transaccion/nueva', component: ConsufinWizardComponent },
   { path: 'consufin/transaccion/preview', component: ConsufinTransactionDetailComponent },
+  { path: 'consufin/transaccion/acciones', component: ConsufinTransactionActionsComponent },
   { path: 'consufin/transacciones', component: ConsufinListComponent },
   { path: 'consufin/calculadora', component: ConsufinCalculatorComponent },
   { path: 'consufin/faq', component: ConsufinFaqComponent },

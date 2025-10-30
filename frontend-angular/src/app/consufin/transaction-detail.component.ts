@@ -20,9 +20,9 @@ import { RouterModule } from '@angular/router';
               <div class="text-sm text-gray-700">
                 <div class="mb-2">Enlace: <a [href]="transactionLink" class="text-indigo-600 break-all">{{ transactionLink }}</a></div>
                 <div class="flex gap-3 flex-wrap">
-                  <a [href]="'mailto:?subject=Transacción%20CONSUFIN&body=' + encode(transactionLink)" class="px-3 py-1.5 border rounded">Email</a>
-                  <a [href]="'https://wa.me/?text=' + encode(transactionLink)" target="_blank" class="px-3 py-1.5 border rounded">WhatsApp</a>
-                  <button (click)="copy()" class="px-3 py-1.5 border rounded">Copiar link</button>
+                  <a [href]="'mailto:?subject=Transacción%20CONSUFIN&body=' + encode(transactionLink)" class="px-3 py-1.5 border rounded bg-gray-100 text-gray-800">Email</a>
+                  <a [href]="'https://wa.me/?text=' + encode(transactionLink)" target="_blank" class="px-3 py-1.5 border rounded bg-gray-100 text-gray-800">WhatsApp</a>
+                  <button (click)="copy()" class="px-3 py-1.5 border rounded bg-gray-100 text-gray-800">Copiar link</button>
                 </div>
               </div>
             </div>
@@ -39,7 +39,7 @@ import { RouterModule } from '@angular/router';
                 <p class="text-xs text-gray-500">Solo el propietario del medio podrá abrir el enlace.</p>
               </div>
               <div class="mt-4">
-                <button (click)="goToDetails()" class="px-4 py-2 bg-emerald-600 text-white rounded">Continuar</button>
+                <button (click)="goToActions()" class="px-4 py-2 bg-emerald-600 text-white rounded">Continuar</button>
               </div>
             </div>
           </div>
@@ -154,13 +154,7 @@ export class ConsufinTransactionDetailComponent {
     try { await navigator.clipboard.writeText(this.transactionLink); } catch {}
   }
   encode(value: string): string { return encodeURIComponent(value); }
-  goToDetails() {
-    this.showDetails = true;
-    setTimeout(() => {
-      const el = document.getElementById('details-section');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 0);
-  }
+  goToActions() { location.assign('/consufin/transaccion/acciones'); }
   regenerateQR() {
     const url = new URL(this.transactionLink);
     url.searchParams.set('qrMode', this.qrMode);
