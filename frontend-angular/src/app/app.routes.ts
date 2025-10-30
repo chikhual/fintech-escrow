@@ -13,6 +13,7 @@ import { ConsufinHelpComponent } from './consufin/help.component';
 import { ConsufinContactComponent } from './consufin/contact.component';
 import { ConsufinKycComponent } from './consufin/kyc.component';
 import { ConsufinIntegrationsComponent } from './consufin/integrations.component';
+import { UserSettingsComponent } from './consufin/settings.component';
 
 export const routes: Routes = [
   { path: '', component: TaskDashboardComponent },
@@ -30,5 +31,6 @@ export const routes: Routes = [
   { path: 'consufin/contacto', component: ConsufinContactComponent },
   { path: 'consufin/validacion', component: ConsufinKycComponent },
   { path: 'consufin/integraciones', component: ConsufinIntegrationsComponent },
+  { path: 'consufin/settings', component: UserSettingsComponent },
   { path: '**', redirectTo: '' }
 ];
