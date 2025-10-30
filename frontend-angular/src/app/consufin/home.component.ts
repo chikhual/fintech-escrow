@@ -299,7 +299,6 @@ import { RouterModule } from '@angular/router';
   `,
   styles: []
 })
-export class ConsufinHomeComponent {}
 export class ConsufinHomeComponent { mobileOpen = false; }
 
 
