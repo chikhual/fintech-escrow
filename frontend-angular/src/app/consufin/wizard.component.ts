@@ -16,8 +16,8 @@ import { RouterModule } from '@angular/router';
             <div>
               <label class="block text-sm text-gray-700 mb-1">Rol</label>
               <select class="w-full border rounded px-3 py-2">
-                <option>Buyer</option>
-                <option>Seller</option>
+                <option>Comprador</option>
+                <option>Vendedor</option>
                 <option>Broker</option>
               </select>
             </div>
@@ -29,6 +29,7 @@ import { RouterModule } from '@angular/router';
                 <option>GBP</option>
                 <option>AUD</option>
                 <option>CAD</option>
+                <option>Peso MX</option>
               </select>
             </div>
             <div>
@@ -39,8 +40,8 @@ import { RouterModule } from '@angular/router';
             <div>
               <label class="block text-sm text-gray-700 mb-1">Quién paga comisión</label>
               <select class="w-full border rounded px-3 py-2">
-                <option>Buyer</option>
-                <option>Seller</option>
+                <option>Comprador</option>
+                <option>Vendedor</option>
                 <option>50% - 50%</option>
                 <option>Personalizar</option>
               </select>
