@@ -12,9 +12,14 @@ import { CommonModule } from '@angular/common';
         <p class="text-gray-600 mb-6">Selecciona tu tipo de persona y registra tus datos.</p>
 
         <div class="grid grid-cols-2 gap-3 mb-4">
-          <button class="px-3 py-2 border rounded bg-indigo-50 border-indigo-200 text-indigo-700">Persona Física</button>
-          <button class="px-3 py-2 border rounded">Persona Moral</button>
+          <button (click)="selectType('fisica')"
+                  [ngClass]="personType === 'fisica' ? 'bg-indigo-50 border-indigo-200 text-indigo-700' : ''"
+                  class="px-3 py-2 border rounded transition">Persona Física</button>
+          <button (click)="selectType('moral')"
+                  [ngClass]="personType === 'moral' ? 'bg-indigo-50 border-indigo-200 text-indigo-700' : ''"
+                  class="px-3 py-2 border rounded transition">Persona Moral</button>
         </div>
+        <p class="text-xs text-gray-600 mb-4">Tipo seleccionado: <span class="font-medium text-gray-800">{{ personType === 'fisica' ? 'Persona Física' : 'Persona Moral' }}</span></p>
 
         <div class="space-y-4">
           <div>
@@ -34,7 +39,10 @@ import { CommonModule } from '@angular/common';
   `,
   styles: []
 })
-export class ConsufinAuthComponent {}
+export class ConsufinAuthComponent {
+  personType: 'fisica' | 'moral' = 'fisica';
+  selectType(type: 'fisica' | 'moral'): void { this.personType = type; }
+}
 
 
 
