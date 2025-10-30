@@ -25,7 +25,7 @@ import { RouterModule } from '@angular/router';
       <main class="max-w-6xl mx-auto px-6 py-10">
         <section class="grid md:grid-cols-2 gap-8 items-center mb-12">
           <div>
-            <h2 class="text-4xl font-extrabold text-gray-900 leading-tight mb-4">Nunca compres o vendas sin un ESCROW.</h2>
+            <h2 class="text-4xl font-extrabold text-gray-900 leading-tight mb-4">Nunca compres o vendas sin CONSUFIN</h2>
             <p class="text-gray-700 mb-6">Un tercero confiable retiene el pago hasta que ambas partes confirman satisfacción. Pagos seguros, sin contracargos y con trazabilidad.</p>
             <div class="bg-white rounded-xl shadow p-4 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
               <select class="border rounded px-3 py-2 w-full sm:w-48">
