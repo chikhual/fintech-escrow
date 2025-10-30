@@ -38,11 +38,14 @@ import { RouterModule } from '@angular/router';
                 <button (click)="regenerateQR()" class="px-3 py-2 bg-indigo-600 text-white rounded">Generar QR restringido</button>
                 <p class="text-xs text-gray-500">Solo el propietario del medio podrá abrir el enlace.</p>
               </div>
+              <div class="mt-4">
+                <button (click)="goToDetails()" class="px-4 py-2 bg-emerald-600 text-white rounded">Continuar</button>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="mb-6">
+        
+        <div class="mb-6" *ngIf="showDetails" id="details-section">
           <h3 class="font-semibold text-gray-900 mb-2">Método de distribución del pago</h3>
           <div class="grid md:grid-cols-3 gap-4">
             <div>
@@ -82,7 +85,7 @@ import { RouterModule } from '@angular/router';
           </div>
         </div>
 
-        <div class="mb-6">
+        <div class="mb-6" *ngIf="showDetails">
           <h3 class="font-semibold text-gray-900 mb-4">Línea de tiempo</h3>
           <div class="flex items-center justify-between gap-2">
             <ng-container *ngFor="let s of steps; let i = index">
@@ -126,6 +129,7 @@ export class ConsufinTransactionDetailComponent {
   distribution = 'Liquidación total';
   paymentRef = '';
   beneficiary = '';
+  showDetails = false;
   steps = ['Acuerdo', 'Pago', 'Transferencia/Entrega', 'Inspección', 'Cierre'];
   currentStep = 0;
   schedule = [
@@ -150,6 +154,13 @@ export class ConsufinTransactionDetailComponent {
     try { await navigator.clipboard.writeText(this.transactionLink); } catch {}
   }
   encode(value: string): string { return encodeURIComponent(value); }
+  goToDetails() {
+    this.showDetails = true;
+    setTimeout(() => {
+      const el = document.getElementById('details-section');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 0);
+  }
   regenerateQR() {
     const url = new URL(this.transactionLink);
     url.searchParams.set('qrMode', this.qrMode);
