@@ -102,7 +102,7 @@ import { RouterModule } from '@angular/router';
                         'bg-emerald-600 text-white': currentStep > i,
                         'bg-indigo-600 text-white': currentStep === i,
                         'bg-gray-200 text-gray-700': currentStep < i
-                      }" class="h-8 w-8 rounded-full flex items-center justify-center text-sm font-medium"></div>
+                      }" class="h-8 w-8 rounded-full flex items-center justify-center text-sm font-medium">{{ i+1 }}</div>
                   <span class="ml-2 text-sm" [ngClass]="currentStep >= i ? 'text-gray-900' : 'text-gray-500'">{{ s }}</span>
                 </div>
                 <div *ngIf="i < steps.length - 1" class="h-1 flex-1 mx-2" [ngClass]="currentStep > i ? 'bg-emerald-600' : 'bg-gray-200'"></div>
