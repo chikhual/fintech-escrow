@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
                 <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </button>
-            <h1 class="text-xl font-bold text-gray-900">CONSUFIN • ESCROW</h1>
+            <h1 class="text-xl font-bold text-gray-900">CONSUFIN</h1>
           </div>
           <nav class="hidden lg:flex items-center gap-4 text-sm">
             <a routerLink="/consufin/transacciones" class="text-gray-600 hover:text-gray-900">Mis transacciones</a>
