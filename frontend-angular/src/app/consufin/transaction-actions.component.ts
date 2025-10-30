@@ -29,11 +29,26 @@ import { RouterModule } from '@angular/router';
         </div>
 
         <div class="grid md:grid-cols-2 gap-4 mb-6">
-          <button *ngIf="isBuyer" (click)="openAcceptReject()" class="px-4 py-3 border rounded">Aceptar / Rechazar</button>
-          <button [disabled]="!accepted" (click)="deposit()" class="px-4 py-3 border rounded disabled:opacity-50">Depositar fondos</button>
-          <button *ngIf="isSeller" (click)="openUpload('envio')" class="px-4 py-3 border rounded">Subir evidencia de envío</button>
-          <button (click)="openUpload('entrega')" class="px-4 py-3 border rounded">Subir evidencia de entrega</button>
-          <button *ngIf="deliveryConfirmed" (click)="openApproveDispute()" class="px-4 py-3 border rounded md:col-span-2">Aprobar / Disputar</button>
+          <button *ngIf="isBuyer"
+                  (click)="openAcceptReject()"
+                  [ngClass]="{
+                    'bg-emerald-600 text-white': decision==='accepted',
+                    'bg-red-600 text-white': decision==='rejected',
+                    'bg-gray-100 text-gray-800': !decision
+                  }"
+                  class="px-4 py-3 border rounded">Aceptar / Rechazar</button>
+          <button [disabled]="!accepted"
+                  (click)="deposit()"
+                  class="px-4 py-3 border rounded disabled:opacity-50"
+                  [ngClass]="{'bg-gray-100 text-gray-800': true}">Depositar fondos</button>
+          <button *ngIf="isSeller"
+                  (click)="openUpload('envio')"
+                  [ngClass]="evidenceEnvio>0 ? 'bg-emerald-600 text-white' : 'bg-gray-100 text-gray-800'"
+                  class="px-4 py-3 border rounded">Subir evidencia de envío</button>
+          <button (click)="openUpload('entrega')"
+                  [ngClass]="evidenceEntrega>0 ? 'bg-emerald-600 text-white' : 'bg-gray-100 text-gray-800'"
+                  class="px-4 py-3 border rounded">Subir evidencia de entrega</button>
+          <button *ngIf="deliveryConfirmed" (click)="openApproveDispute()" class="px-4 py-3 border rounded md:col-span-2 bg-gray-100 text-gray-800">Aprobar / Disputar</button>
         </div>
 
         <div class="flex justify-end">
@@ -44,7 +59,8 @@ import { RouterModule } from '@angular/router';
         <div *ngIf="showUpload" class="fixed inset-0 bg-black/40 flex items-center justify-center p-4">
           <div class="bg-white rounded-xl shadow p-6 w-full max-w-md">
             <h3 class="font-semibold text-gray-900 mb-3">Subir evidencia de {{ uploadType==='envio' ? 'envío' : 'entrega' }}</h3>
-            <input type="file" class="mb-3" />
+            <input type="file" (change)="onFiles($event)" accept="image/*,.pdf" multiple class="mb-3" />
+            <p class="text-xs text-gray-600 mb-2">Puedes subir de 1 a 5 archivos (imágenes o PDF).</p>
             <textarea class="w-full border rounded px-3 py-2 mb-4" rows="3" placeholder="Notas"></textarea>
             <div class="flex justify-end gap-3">
               <button (click)="closeModals()" class="px-4 py-2 border rounded">Cancelar</button>
@@ -96,6 +112,9 @@ export class ConsufinTransactionActionsComponent {
   accepted = false;
   deposited = false;
   deliveryConfirmed = false;
+  decision: 'accepted' | 'rejected' | '' = '';
+  evidenceEnvio = 0;
+  evidenceEntrega = 0;
 
   constructor() {
     try {
@@ -113,17 +132,25 @@ export class ConsufinTransactionActionsComponent {
   }
   confirmUpload() {
     this.showUpload = false;
-    if (this.uploadType === 'envio') this.currentStep = Math.max(this.currentStep, 1);
-    if (this.uploadType === 'entrega') { this.deliveryConfirmed = true; this.currentStep = Math.max(this.currentStep, 2); }
+    if (this.uploadType === 'envio') { this.currentStep = Math.max(this.currentStep, 1); if (this.tempFilesCount>0) this.evidenceEnvio = this.tempFilesCount; }
+    if (this.uploadType === 'entrega') { this.deliveryConfirmed = true; this.currentStep = Math.max(this.currentStep, 2); if (this.tempFilesCount>0) this.evidenceEntrega = this.tempFilesCount; }
+    this.tempFilesCount = 0;
   }
   openAcceptReject() { this.showAcceptReject = true; }
-  accept() { this.accepted = true; this.showAcceptReject = false; this.currentStep = Math.max(this.currentStep, 3); }
-  reject() { location.assign('/consufin/transaccion/rechazo'); }
+  accept() { this.accepted = true; this.decision = 'accepted'; this.showAcceptReject = false; this.currentStep = Math.max(this.currentStep, 3); }
+  reject() { this.decision = 'rejected'; this.showAcceptReject = false; location.assign('/consufin/transaccion/rechazo'); }
   deposit() { this.deposited = true; this.currentStep = Math.max(this.currentStep, 3); }
   openApproveDispute() { this.showApproveDispute = true; }
   approve() { this.showApproveDispute = false; this.currentStep = Math.max(this.currentStep, 4); }
   dispute() { this.showApproveDispute = false; location.assign('/consufin/transaccion/disputa'); }
   closeModals() { this.showUpload = this.showAcceptReject = this.showApproveDispute = false; }
+
+  tempFilesCount = 0;
+  onFiles(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const files = input.files ? Array.from(input.files) : [];
+    this.tempFilesCount = Math.min(Math.max(files.length, 0), 5);
+  }
 }
 
 
