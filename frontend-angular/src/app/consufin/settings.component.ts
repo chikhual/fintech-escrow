@@ -43,7 +43,7 @@ import { CommonModule } from '@angular/common';
               </div>
               <div class="grid grid-cols-3 gap-4 py-3">
                 <dt class="text-gray-500 uppercase tracking-wide">Email Address:</dt>
-                <dd class="col-span-2 text-gray-900">bernardo.cervantes@gmail.com</dd>
+                <dd class="col-span-2 text-gray-900">bernardo.cervantes&#64;gmail.com</dd>
               </div>
               <div class="grid grid-cols-3 gap-4 py-3">
                 <dt class="text-gray-500 uppercase tracking-wide">Primary Phone:</dt>
