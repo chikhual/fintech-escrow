@@ -140,6 +140,23 @@ export class ConsufinWizardComponent {
 
   create(): void {
     if (!this.isValid()) return;
+    const transactionId = `TX-${Date.now()}`;
+    const link = `${location.origin}/consufin/transaccion/preview?id=${transactionId}`;
+    const payload = {
+      id: transactionId,
+      role: this.role,
+      currency: this.currency,
+      inspectionDays: this.inspectionDays,
+      feePayer: this.feePayer,
+      category: this.category,
+      amount: this.amount,
+      title: this.title,
+      description: this.description,
+      counterpartyEmail: this.counterpartyEmail,
+      counterpartyPhone: this.counterpartyPhone,
+      link
+    };
+    try { sessionStorage.setItem('lastTransaction', JSON.stringify(payload)); } catch {}
     this.router.navigate(['/consufin/transaccion/preview']);
   }
 }

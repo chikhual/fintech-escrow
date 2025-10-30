@@ -1,14 +1,30 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-consufin-transaction-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   template: `
     <div class="min-h-screen bg-gray-50 p-6">
       <div class="max-w-4xl mx-auto bg-white rounded-xl shadow p-6">
         <h2 class="text-2xl font-bold text-gray-900 mb-4">Transacción • Detalle</h2>
+
+        <div class="mb-6">
+          <h3 class="font-semibold text-gray-900 mb-2">Comparte con QR</h3>
+          <div class="flex items-center gap-6 flex-wrap">
+            <img [src]="qrSrc" alt="QR" class="h-40 w-40 border rounded" />
+            <div class="text-sm text-gray-700">
+              <div class="mb-2">Enlace: <a [href]="transactionLink" class="text-indigo-600 break-all">{{ transactionLink }}</a></div>
+              <div class="flex gap-3">
+                <a [href]="'mailto:?subject=Transacción%20CONSUFIN&body=' + encodeURIComponent(transactionLink)" class="px-3 py-1.5 border rounded">Email</a>
+                <a [href]="'https://wa.me/?text=' + encodeURIComponent(transactionLink)" target="_blank" class="px-3 py-1.5 border rounded">WhatsApp</a>
+                <button (click)="copy()" class="px-3 py-1.5 border rounded">Copiar link</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="mb-6">
           <h3 class="font-semibold text-gray-900 mb-2">Línea de tiempo</h3>
@@ -36,7 +52,27 @@ import { CommonModule } from '@angular/common';
   `,
   styles: []
 })
-export class ConsufinTransactionDetailComponent {}
+export class ConsufinTransactionDetailComponent {
+  transactionLink = '';
+  qrSrc = '';
+  constructor() {
+    try {
+      const raw = sessionStorage.getItem('lastTransaction');
+      if (raw) {
+        const data = JSON.parse(raw);
+        this.transactionLink = data.link || location.href;
+      } else {
+        this.transactionLink = location.href;
+      }
+    } catch {
+      this.transactionLink = location.href;
+    }
+    this.qrSrc = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(this.transactionLink);
+  }
+  async copy() {
+    try { await navigator.clipboard.writeText(this.transactionLink); } catch {}
+  }
+}
 
 
 
