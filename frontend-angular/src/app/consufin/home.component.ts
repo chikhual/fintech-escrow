@@ -8,17 +8,46 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule],
   template: `
     <div class="min-h-screen bg-gray-50">
-      <header class="bg-white border-b">
+      <header class="bg-white border-b sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 class="text-xl font-bold text-gray-900">CONSUFIN • ESCROW</h1>
-          <nav class="space-x-4 text-sm">
+          <div class="flex items-center gap-2">
+            <button class="lg:hidden -m-2.5 p-2.5 text-gray-700" (click)="mobileOpen = true" aria-label="Abrir menú">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <h1 class="text-xl font-bold text-gray-900">CONSUFIN • ESCROW</h1>
+          </div>
+          <nav class="hidden lg:flex items-center gap-4 text-sm">
             <a routerLink="/consufin/transacciones" class="text-gray-600 hover:text-gray-900">Mis transacciones</a>
             <a routerLink="/consufin/integraciones" class="text-gray-600 hover:text-gray-900">Integraciones</a>
             <a routerLink="/consufin/validacion" class="text-gray-600 hover:text-gray-900">Validación KYC</a>
             <a routerLink="/consufin/ayuda" class="text-gray-600 hover:text-gray-900">Ayuda</a>
             <a routerLink="/consufin/contacto" class="text-gray-600 hover:text-gray-900">Contáctanos</a>
-            <a routerLink="/consufin/registro" class="ml-4 inline-block px-3 py-1.5 bg-indigo-600 text-white rounded">Login / Registro</a>
+            <a routerLink="/consufin/registro" class="ml-2 inline-block px-3 py-1.5 bg-indigo-600 text-white rounded">Login / Registro</a>
           </nav>
+        </div>
+        <!-- Mobile drawer -->
+        <div *ngIf="mobileOpen" class="lg:hidden fixed inset-0 z-50">
+          <div class="fixed inset-0 bg-black/20" (click)="mobileOpen = false"></div>
+          <div class="fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-xl p-6">
+            <div class="flex items-center justify-between">
+              <div class="text-lg font-semibold">Menú</div>
+              <button class="-m-2.5 p-2.5" (click)="mobileOpen = false" aria-label="Cerrar menú">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+                  <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <nav class="mt-6 space-y-2 text-base">
+              <a (click)="mobileOpen=false" routerLink="/consufin/transacciones" class="block rounded px-3 py-2 hover:bg-gray-50">Mis transacciones</a>
+              <a (click)="mobileOpen=false" routerLink="/consufin/integraciones" class="block rounded px-3 py-2 hover:bg-gray-50">Integraciones</a>
+              <a (click)="mobileOpen=false" routerLink="/consufin/validacion" class="block rounded px-3 py-2 hover:bg-gray-50">Validación KYC</a>
+              <a (click)="mobileOpen=false" routerLink="/consufin/ayuda" class="block rounded px-3 py-2 hover:bg-gray-50">Ayuda</a>
+              <a (click)="mobileOpen=false" routerLink="/consufin/contacto" class="block rounded px-3 py-2 hover:bg-gray-50">Contáctanos</a>
+              <a (click)="mobileOpen=false" routerLink="/consufin/registro" class="block rounded px-3 py-2 bg-indigo-600 text-white text-center">Login / Registro</a>
+            </nav>
+          </div>
         </div>
       </header>
 
@@ -271,6 +300,7 @@ import { RouterModule } from '@angular/router';
   styles: []
 })
 export class ConsufinHomeComponent {}
+export class ConsufinHomeComponent { mobileOpen = false; }
 
 
 
