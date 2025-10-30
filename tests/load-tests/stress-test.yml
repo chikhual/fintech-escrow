@@ -1,0 +1,108 @@
+config:
+  target: 'http://localhost:4200'
+  phases:
+    - duration: 30
+      arrivalRate: 50
+      name: "Warm up"
+    - duration: 60
+      arrivalRate: 100
+      name: "Ramp up stress"
+    - duration: 180
+      arrivalRate: 200
+      name: "High stress load"
+    - duration: 60
+      arrivalRate: 100
+      name: "Sustained stress"
+    - duration: 30
+      arrivalRate: 50
+      name: "Ramp down"
+  defaults:
+    headers:
+      Content-Type: 'application/json'
+      Accept: 'application/json'
+  plugins:
+    metrics-by-endpoint:
+      useOnlyRequestNames: true
+
+scenarios:
+  - name: "High Volume Registration"
+    weight: 30
+    flow:
+      - get:
+          url: "/"
+          name: "Home Page"
+      - post:
+          url: "/api/auth/register"
+          name: "Bulk User Registration"
+          json:
+            firstName: "Stress Test User {{ $randomInt(1, 10000) }}"
+            lastName: "Test"
+            email: "stresstest{{ $randomInt(1, 10000) }}@example.com"
+            phone: "+5255{{ $randomInt(10000000, 99999999) }}"
+            password: "Test123!"
+            confirmPassword: "Test123!"
+            role: "buyer"
+            acceptTerms: true
+
+  - name: "Concurrent Login Stress"
+    weight: 25
+    flow:
+      - get:
+          url: "/login"
+          name: "Login Page"
+      - post:
+          url: "/api/auth/login"
+          name: "Concurrent Login"
+          json:
+            email: "buyer@test.com"
+            password: "Test123!"
+      - get:
+          url: "/dashboard"
+          name: "Dashboard"
+
+  - name: "Transaction Creation Stress"
+    weight: 25
+    flow:
+      - post:
+          url: "/api/auth/login"
+          name: "Login for Transaction Stress"
+          json:
+            email: "seller@test.com"
+            password: "Test123!"
+      - post:
+          url: "/api/transactions"
+          name: "Bulk Transaction Creation"
+          json:
+            itemName: "Stress Test Item {{ $randomInt(1, 10000) }}"
+            itemDescription: "Item for stress testing"
+            itemPrice: {{ $randomInt(1000, 100000) }}
+            currency: "MXN"
+            category: "Electronics"
+            condition: "Nuevo"
+            inspectionPeriod: 3
+            buyerEmail: "buyer@test.com"
+
+  - name: "API Endpoint Stress"
+    weight: 20
+    flow:
+      - post:
+          url: "/api/auth/login"
+          name: "Login for API Stress"
+          json:
+            email: "buyer@test.com"
+            password: "Test123!"
+      - get:
+          url: "/api/transactions"
+          name: "Get Transactions Stress"
+      - get:
+          url: "/api/users/profile"
+          name: "Get Profile Stress"
+      - get:
+          url: "/api/notifications"
+          name: "Get Notifications Stress"
+      - get:
+          url: "/api/transactions/search"
+          name: "Search Transactions Stress"
+          qs:
+            query: "stress test"
+            status: "all"

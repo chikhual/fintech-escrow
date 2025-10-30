@@ -1,0 +1,137 @@
+config:
+  target: 'http://localhost:4200'
+  phases:
+    - duration: 120
+      arrivalRate: 5
+      name: "Low volume"
+    - duration: 180
+      arrivalRate: 25
+      name: "Medium volume"
+    - duration: 300
+      arrivalRate: 50
+      name: "High volume"
+    - duration: 180
+      arrivalRate: 25
+      name: "Medium volume"
+    - duration: 120
+      arrivalRate: 5
+      name: "Low volume"
+  defaults:
+    headers:
+      Content-Type: 'application/json'
+      Accept: 'application/json'
+  plugins:
+    metrics-by-endpoint:
+      useOnlyRequestNames: true
+
+scenarios:
+  - name: "Volume User Registration"
+    weight: 20
+    flow:
+      - get:
+          url: "/"
+          name: "Home Page"
+      - post:
+          url: "/api/auth/register"
+          name: "Volume User Registration"
+          json:
+            firstName: "Volume Test User {{ $randomInt(1, 50000) }}"
+            lastName: "Test"
+            email: "volumetest{{ $randomInt(1, 50000) }}@example.com"
+            phone: "+5255{{ $randomInt(10000000, 99999999) }}"
+            password: "Test123!"
+            confirmPassword: "Test123!"
+            role: "buyer"
+            acceptTerms: true
+
+  - name: "Volume Login Flow"
+    weight: 25
+    flow:
+      - get:
+          url: "/login"
+          name: "Login Page"
+      - post:
+          url: "/api/auth/login"
+          name: "Volume Login"
+          json:
+            email: "buyer@test.com"
+            password: "Test123!"
+      - get:
+          url: "/dashboard"
+          name: "Dashboard"
+
+  - name: "Volume Transaction Operations"
+    weight: 30
+    flow:
+      - post:
+          url: "/api/auth/login"
+          name: "Login for Volume Operations"
+          json:
+            email: "seller@test.com"
+            password: "Test123!"
+      - post:
+          url: "/api/transactions"
+          name: "Volume Transaction Creation"
+          json:
+            itemName: "Volume Test Item {{ $randomInt(1, 50000) }}"
+            itemDescription: "Item for volume testing"
+            itemPrice: {{ $randomInt(1000, 100000) }}
+            currency: "MXN"
+            category: "Electronics"
+            condition: "Nuevo"
+            inspectionPeriod: 3
+            buyerEmail: "buyer@test.com"
+      - get:
+          url: "/api/transactions"
+          name: "Volume Get Transactions"
+      - get:
+          url: "/api/transactions/{{ $randomInt(1, 100) }}"
+          name: "Volume Get Transaction Details"
+
+  - name: "Volume Payment Processing"
+    weight: 15
+    flow:
+      - post:
+          url: "/api/auth/login"
+          name: "Login for Volume Payment"
+          json:
+            email: "buyer@test.com"
+            password: "Test123!"
+      - post:
+          url: "/api/payments"
+          name: "Volume Payment Processing"
+          json:
+            transactionId: {{ $randomInt(1, 100) }}
+            amount: {{ $randomInt(1000, 50000) }}
+            currency: "MXN"
+            paymentMethod: "credit_card"
+            cardNumber: "4242424242424242"
+            expiryMonth: "12"
+            expiryYear: "2025"
+            cvv: "123"
+            cardholderName: "Test User"
+
+  - name: "Volume API Calls"
+    weight: 10
+    flow:
+      - post:
+          url: "/api/auth/login"
+          name: "Login for Volume API"
+          json:
+            email: "buyer@test.com"
+            password: "Test123!"
+      - get:
+          url: "/api/transactions"
+          name: "Volume Get Transactions"
+      - get:
+          url: "/api/users/profile"
+          name: "Volume Get Profile"
+      - get:
+          url: "/api/notifications"
+          name: "Volume Get Notifications"
+      - get:
+          url: "/api/transactions/search"
+          name: "Volume Search Transactions"
+          qs:
+            query: "volume test"
+            status: "all"

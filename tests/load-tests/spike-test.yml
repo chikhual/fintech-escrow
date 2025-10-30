@@ -1,0 +1,83 @@
+config:
+  target: 'http://localhost:4200'
+  phases:
+    - duration: 60
+      arrivalRate: 10
+      name: "Normal load"
+    - duration: 30
+      arrivalRate: 500
+      name: "Spike load"
+    - duration: 60
+      arrivalRate: 10
+      name: "Return to normal"
+    - duration: 30
+      arrivalRate: 1000
+      name: "Extreme spike"
+    - duration: 60
+      arrivalRate: 10
+      name: "Recovery"
+  defaults:
+    headers:
+      Content-Type: 'application/json'
+      Accept: 'application/json'
+  plugins:
+    metrics-by-endpoint:
+      useOnlyRequestNames: true
+
+scenarios:
+  - name: "Spike Login Test"
+    weight: 40
+    flow:
+      - get:
+          url: "/login"
+          name: "Login Page"
+      - post:
+          url: "/api/auth/login"
+          name: "Spike Login"
+          json:
+            email: "buyer@test.com"
+            password: "Test123!"
+      - get:
+          url: "/dashboard"
+          name: "Dashboard"
+
+  - name: "Spike Transaction Creation"
+    weight: 30
+    flow:
+      - post:
+          url: "/api/auth/login"
+          name: "Login for Spike Transaction"
+          json:
+            email: "seller@test.com"
+            password: "Test123!"
+      - post:
+          url: "/api/transactions"
+          name: "Spike Transaction Creation"
+          json:
+            itemName: "Spike Test Item {{ $randomInt(1, 10000) }}"
+            itemDescription: "Item for spike testing"
+            itemPrice: {{ $randomInt(1000, 50000) }}
+            currency: "MXN"
+            category: "Electronics"
+            condition: "Nuevo"
+            inspectionPeriod: 3
+            buyerEmail: "buyer@test.com"
+
+  - name: "Spike API Calls"
+    weight: 30
+    flow:
+      - post:
+          url: "/api/auth/login"
+          name: "Login for Spike API"
+          json:
+            email: "buyer@test.com"
+            password: "Test123!"
+      - get:
+          url: "/api/transactions"
+          name: "Spike Get Transactions"
+      - get:
+          url: "/api/users/profile"
+          name: "Spike Get Profile"
+      - get:
+          url: "/api/notifications"
+          name: "Spike Get Notifications"

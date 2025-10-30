@@ -1,0 +1,286 @@
+{
+  "users": [
+    {
+      "username": "admin_test",
+      "email": "admin@test.com",
+      "password": "Test123!",
+      "role": "admin",
+      "firstName": "Admin",
+      "lastName": "User",
+      "phone": "+5255111111111",
+      "isVerified": true,
+      "isKycVerified": true,
+      "kycData": {
+        "curp": "ADMT123456HDFRRL01",
+        "rfc": "ADMT123456ABC",
+        "ine": "111111111111111111"
+      }
+    },
+    {
+      "username": "advisor_test",
+      "email": "advisor@test.com",
+      "password": "Test123!",
+      "role": "advisor",
+      "firstName": "Advisor",
+      "lastName": "User",
+      "phone": "+5255222222222",
+      "isVerified": true,
+      "isKycVerified": true,
+      "kycData": {
+        "curp": "ADVT123456HDFRRL01",
+        "rfc": "ADVT123456ABC",
+        "ine": "222222222222222222"
+      }
+    },
+    {
+      "username": "seller_test",
+      "email": "seller@test.com",
+      "password": "Test123!",
+      "role": "seller",
+      "firstName": "Seller",
+      "lastName": "User",
+      "phone": "+5255333333333",
+      "isVerified": true,
+      "isKycVerified": true,
+      "kycData": {
+        "curp": "SLRT123456HDFRRL01",
+        "rfc": "SLRT123456ABC",
+        "ine": "333333333333333333"
+      }
+    },
+    {
+      "username": "buyer_test",
+      "email": "buyer@test.com",
+      "password": "Test123!",
+      "role": "buyer",
+      "firstName": "Buyer",
+      "lastName": "User",
+      "phone": "+5255444444444",
+      "isVerified": true,
+      "isKycVerified": true,
+      "kycData": {
+        "curp": "BYRT123456HDFRRL01",
+        "rfc": "BYRT123456ABC",
+        "ine": "444444444444444444"
+      }
+    },
+    {
+      "username": "broker_test",
+      "email": "broker@test.com",
+      "password": "Test123!",
+      "role": "broker",
+      "firstName": "Broker",
+      "lastName": "User",
+      "phone": "+5255555555555",
+      "isVerified": true,
+      "isKycVerified": true,
+      "kycData": {
+        "curp": "BRKT123456HDFRRL01",
+        "rfc": "BRKT123456ABC",
+        "ine": "555555555555555555"
+      }
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "buyerId": 4,
+      "sellerId": 3,
+      "itemName": "iPhone 15 Pro Max",
+      "itemDescription": "Nuevo iPhone 15 Pro Max 256GB en caja sellada",
+      "itemPrice": 35000,
+      "currency": "MXN",
+      "amount": 35000,
+      "status": "pending_agreement",
+      "category": "Electronics",
+      "condition": "Nuevo",
+      "inspectionPeriod": 3,
+      "shippingMethod": "FedEx",
+      "shippingCost": 500,
+      "insurance": true,
+      "specialTerms": "Producto debe estar en perfecto estado",
+      "createdAt": "2024-01-30T10:00:00Z",
+      "updatedAt": "2024-01-30T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "buyerId": 4,
+      "sellerId": 3,
+      "itemName": "MacBook Pro M3",
+      "itemDescription": "MacBook Pro 14\" con chip M3, 512GB SSD",
+      "itemPrice": 45000,
+      "currency": "MXN",
+      "amount": 45000,
+      "status": "payment_received",
+      "category": "Electronics",
+      "condition": "Nuevo",
+      "inspectionPeriod": 3,
+      "shippingMethod": "DHL",
+      "shippingCost": 800,
+      "insurance": true,
+      "specialTerms": "Incluye cargador original y cable USB-C",
+      "createdAt": "2024-01-29T15:30:00Z",
+      "updatedAt": "2024-01-30T09:15:00Z"
+    },
+    {
+      "id": 3,
+      "buyerId": 4,
+      "sellerId": 3,
+      "itemName": "Samsung Galaxy S24 Ultra",
+      "itemDescription": "Samsung Galaxy S24 Ultra 256GB, color negro",
+      "itemPrice": 28000,
+      "currency": "MXN",
+      "amount": 28000,
+      "status": "completed",
+      "category": "Electronics",
+      "condition": "Nuevo",
+      "inspectionPeriod": 3,
+      "shippingMethod": "Estafeta",
+      "shippingCost": 300,
+      "insurance": false,
+      "specialTerms": "Garantía de 1 año",
+      "createdAt": "2024-01-25T12:00:00Z",
+      "updatedAt": "2024-01-28T16:45:00Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "transactionId": 1,
+      "senderId": 4,
+      "recipientId": 3,
+      "message": "¿El iPhone incluye cargador?",
+      "messageType": "text",
+      "createdAt": "2024-01-30T10:15:00Z"
+    },
+    {
+      "id": 2,
+      "transactionId": 1,
+      "senderId": 3,
+      "recipientId": 4,
+      "message": "Sí, incluye cargador original y cable USB-C",
+      "messageType": "text",
+      "createdAt": "2024-01-30T10:20:00Z"
+    }
+  ],
+  "disputes": [
+    {
+      "id": 1,
+      "transactionId": 2,
+      "raisedBy": 4,
+      "reason": "item_damaged",
+      "description": "El MacBook llegó con la pantalla rota",
+      "resolution": "refund",
+      "status": "open",
+      "evidence": [
+        "damaged-screen-1.jpg",
+        "damaged-screen-2.jpg"
+      ],
+      "createdAt": "2024-01-30T11:00:00Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "userId": 4,
+      "type": "transaction_created",
+      "title": "Nueva transacción creada",
+      "message": "Se ha creado una nueva transacción para iPhone 15 Pro Max",
+      "isRead": false,
+      "createdAt": "2024-01-30T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "userId": 3,
+      "type": "payment_received",
+      "title": "Pago recibido",
+      "message": "Se ha recibido el pago para MacBook Pro M3",
+      "isRead": true,
+      "createdAt": "2024-01-30T09:15:00Z"
+    }
+  ],
+  "kycDocuments": [
+    {
+      "id": 1,
+      "userId": 4,
+      "documentType": "ine",
+      "fileName": "ine-buyer.jpg",
+      "filePath": "/documents/kyc/ine-buyer.jpg",
+      "status": "approved",
+      "uploadedAt": "2024-01-25T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "userId": 4,
+      "documentType": "proof_of_address",
+      "fileName": "comprobante-domicilio-buyer.pdf",
+      "filePath": "/documents/kyc/comprobante-domicilio-buyer.pdf",
+      "status": "approved",
+      "uploadedAt": "2024-01-25T10:05:00Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": 1,
+      "transactionId": 2,
+      "amount": 45000,
+      "currency": "MXN",
+      "paymentMethod": "credit_card",
+      "paymentIntentId": "pi_test_123456789",
+      "status": "succeeded",
+      "processedAt": "2024-01-30T09:15:00Z"
+    }
+  ],
+  "shipping": [
+    {
+      "id": 1,
+      "transactionId": 2,
+      "trackingNumber": "1Z999AA1234567890",
+      "carrier": "DHL",
+      "shippingDate": "2024-01-30T14:00:00Z",
+      "estimatedDelivery": "2024-02-01T18:00:00Z",
+      "status": "in_transit"
+    }
+  ],
+  "ratings": [
+    {
+      "id": 1,
+      "transactionId": 3,
+      "raterId": 4,
+      "ratedId": 3,
+      "rating": 5,
+      "communication": 5,
+      "itemCondition": 5,
+      "shipping": 4,
+      "overall": 5,
+      "comment": "Excelente vendedor, producto en perfecto estado",
+      "createdAt": "2024-01-28T16:45:00Z"
+    }
+  ],
+  "systemSettings": {
+    "maxTransactionAmount": 1000000,
+    "minTransactionAmount": 100,
+    "inspectionPeriodDays": 3,
+    "escrowFeePercentage": 2.5,
+    "supportedCurrencies": ["MXN", "USD", "EUR"],
+    "supportedPaymentMethods": ["credit_card", "debit_card", "bank_transfer"],
+    "supportedShippingMethods": ["FedEx", "DHL", "Estafeta", "Correos de México"]
+  },
+  "testCards": {
+    "success": "4242424242424242",
+    "decline": "4000000000000002",
+    "insufficient_funds": "4000000000009995",
+    "expired": "4000000000000069",
+    "invalid_cvv": "4000000000000127"
+  },
+  "testEmails": {
+    "verification": "test-verification@example.com",
+    "password_reset": "test-reset@example.com",
+    "transaction_notification": "test-transaction@example.com"
+  },
+  "testPhones": {
+    "valid": "+525512345678",
+    "invalid": "123456789",
+    "international": "+1234567890"
+  }
+}

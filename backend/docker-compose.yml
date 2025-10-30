@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: fintech_postgres
+    environment:
+      POSTGRES_DB: fintech_escrow
+      POSTGRES_USER: fintech_user
+      POSTGRES_PASSWORD: fintech_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - fintech_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: fintech_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - fintech_network
+
+  auth_service:
+    build: ./auth_service
+    container_name: fintech_auth_service
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL=postgresql://fintech_user:fintech_pass@postgres:5432/fintech_escrow
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=your-super-secure-secret-key-here
+      - ALLOWED_ORIGINS=http://localhost:4200,http://localhost:3000
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - fintech_network
+
+  escrow_service:
+    build: ./escrow_service
+    container_name: fintech_escrow_service
+    ports:
+      - "8002:8002"
+    environment:
+      - DATABASE_URL=postgresql://fintech_user:fintech_pass@postgres:5432/fintech_escrow
+      - REDIS_URL=redis://redis:6379
+      - ALLOWED_ORIGINS=http://localhost:4200,http://localhost:3000
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - fintech_network
+
+  payment_service:
+    build: ./payment_service
+    container_name: fintech_payment_service
+    ports:
+      - "8003:8003"
+    environment:
+      - DATABASE_URL=postgresql://fintech_user:fintech_pass@postgres:5432/fintech_escrow
+      - REDIS_URL=redis://redis:6379
+      - STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
+      - ALLOWED_ORIGINS=http://localhost:4200,http://localhost:3000
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - fintech_network
+
+  notification_service:
+    build: ./notification_service
+    container_name: fintech_notification_service
+    ports:
+      - "8004:8004"
+    environment:
+      - DATABASE_URL=postgresql://fintech_user:fintech_pass@postgres:5432/fintech_escrow
+      - REDIS_URL=redis://redis:6379
+      - TWILIO_ACCOUNT_SID=your_twilio_account_sid
+      - TWILIO_AUTH_TOKEN=your_twilio_auth_token
+      - SENDGRID_API_KEY=your_sendgrid_api_key
+      - ALLOWED_ORIGINS=http://localhost:4200,http://localhost:3000
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - fintech_network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  fintech_network:
+    driver: bridge
