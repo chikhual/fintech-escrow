@@ -52,7 +52,7 @@ interface TaskForm {
           </h2>
         </div>
         <div class="p-6">
-          <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="space-y-6">
+          <form (ngSubmit)="onSubmit()" #formRef="ngForm" class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label for="title" class="block text-sm font-medium text-gray-700">Título *</label>
@@ -133,7 +133,7 @@ interface TaskForm {
                       class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Cancelar
               </button>
-              <button type="submit" [disabled]="!taskForm.form.valid || loading"
+              <button type="submit" [disabled]="!formRef.form.valid || loading"
                       class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50">
                 {{ editingTask ? 'Actualizar Tarea' : 'Crear Tarea' }}
               </button>
