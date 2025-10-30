@@ -72,17 +72,24 @@ import { RouterModule } from '@angular/router';
                   <th class="px-3 py-2 text-left">Fecha</th>
                   <th class="px-3 py-2 text-left">Concepto</th>
                   <th class="px-3 py-2 text-left">Monto</th>
+                  <th class="px-3 py-2"></th>
                 </tr>
               </thead>
               <tbody class="divide-y">
-                <tr *ngFor="let row of schedule">
-                  <td class="px-3 py-2">{{ row.date }}</td>
-                  <td class="px-3 py-2">{{ row.concept }}</td>
-                  <td class="px-3 py-2">{{ row.amount }}</td>
+                <tr *ngFor="let row of schedule; let i = index">
+                  <td class="px-3 py-2"><input class="border rounded px-2 py-1 w-28" [(ngModel)]="row.date" /></td>
+                  <td class="px-3 py-2"><input class="border rounded px-2 py-1 w-full" [(ngModel)]="row.concept" /></td>
+                  <td class="px-3 py-2"><input class="border rounded px-2 py-1 w-28 text-right" [(ngModel)]="row.amount" /></td>
+                  <td class="px-3 py-2 text-right"><button (click)="removeRow(i)" class="px-2 py-1 border rounded">Eliminar</button></td>
                 </tr>
               </tbody>
             </table>
           </div>
+          <div class="mt-3 flex justify-between">
+            <button (click)="addRow()" class="px-3 py-2 border rounded">Agregar fila</button>
+            <button (click)="confirmDistribution()" class="px-4 py-2 bg-indigo-600 text-white rounded">Confirmar distribución</button>
+          </div>
+          <p *ngIf="confirmMsg" class="mt-2 text-sm text-emerald-700">{{ confirmMsg }}</p>
         </div>
 
         <div class="mb-6" *ngIf="showDetails">
@@ -131,6 +138,7 @@ export class ConsufinTransactionDetailComponent {
     { date: 'Día 0', concept: 'Depósito a custodia', amount: '—' },
     { date: 'Día N', concept: 'Liberación tras aprobación', amount: '—' }
   ];
+  confirmMsg = '';
   constructor() {
     try {
       const raw = sessionStorage.getItem('lastTransaction');
@@ -144,6 +152,13 @@ export class ConsufinTransactionDetailComponent {
       this.transactionLink = location.href;
     }
     this.qrSrc = this.buildQR(this.transactionLink);
+    if (location.hash.includes('details')) {
+      this.showDetails = true;
+      setTimeout(() => {
+        const el = document.getElementById('details-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 0);
+    }
   }
   async copy() {
     try { await navigator.clipboard.writeText(this.transactionLink); } catch {}
@@ -161,6 +176,9 @@ export class ConsufinTransactionDetailComponent {
   buildQR(data: string): string {
     return 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(data);
   }
+  addRow() { this.schedule.push({ date: '', concept: '', amount: '' }); }
+  removeRow(i: number) { this.schedule.splice(i, 1); }
+  confirmDistribution() { this.confirmMsg = 'Distribución confirmada. Un administrador ejecutará las instrucciones.'; }
 }
 
 
