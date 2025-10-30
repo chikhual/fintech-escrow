@@ -18,9 +18,10 @@ import { ConsufinTransactionActionsComponent } from './consufin/transaction-acti
 import { ConsufinRejectComponent } from './consufin/reject.component';
 import { ConsufinDisputeComponent } from './consufin/dispute.component';
 import { RoleCenterComponent } from './consufin/role-center.component';
+import { BuyerPortalComponent } from './consufin/buyer-portal.component';
 
 export const routes: Routes = [
-  { path: '', component: TaskDashboardComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'consufin' },
   { path: 'broker', component: BrokerDashboardComponent },
   { path: 'tasks', component: TaskManagerComponent },
   // CONSUFIN
@@ -40,5 +41,6 @@ export const routes: Routes = [
   { path: 'consufin/integraciones', component: ConsufinIntegrationsComponent },
   { path: 'consufin/settings', component: UserSettingsComponent },
   { path: 'consufin/roles', component: RoleCenterComponent },
-  { path: '**', redirectTo: '' }
+  { path: 'consufin/comprador', component: BuyerPortalComponent },
+  { path: '**', redirectTo: 'consufin' }
 ];

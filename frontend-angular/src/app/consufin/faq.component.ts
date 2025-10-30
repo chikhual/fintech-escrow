@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BackButtonComponent } from './back-button.component';
 
 @Component({
   selector: 'app-consufin-faq',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BackButtonComponent],
   template: `
     <div class="min-h-screen bg-gray-50 p-6">
       <div class="max-w-4xl mx-auto bg-white rounded-xl shadow p-6">
+        <app-back-button />
         <h2 class="text-2xl font-bold text-gray-900 mb-4">Preguntas frecuentes</h2>
         <div class="space-y-4 text-gray-800">
           <div>

@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BackButtonComponent } from './back-button.component';
 
 @Component({
   selector: 'app-consufin-settings',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BackButtonComponent],
   template: `
     <div class="min-h-screen bg-gray-50 p-6">
       <div class="max-w-5xl mx-auto">
+        <app-back-button />
         <h1 class="text-2xl font-bold text-gray-900 mb-4">Account Settings</h1>
 
         <!-- Verification Status -->

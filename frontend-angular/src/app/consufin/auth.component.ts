@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BackButtonComponent } from './back-button.component';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consufin-auth',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BackButtonComponent],
   template: `
     <div class="min-h-screen bg-gray-50 flex items-center justify-center p-6">
       <div class="bg-white rounded-xl shadow w-full max-w-xl p-6">
+        <app-back-button />
         <h2 class="text-2xl font-bold text-gray-900 mb-2">Crear cuenta en CONSUFIN</h2>
         <p class="text-gray-600 mb-6">Selecciona tu tipo de persona y registra tus datos.</p>
 

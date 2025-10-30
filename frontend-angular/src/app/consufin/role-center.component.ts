@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BackButtonComponent } from './back-button.component';
 
 type RoleTab = 'Vendedor' | 'Comprador' | 'Broker' | 'Asesor';
 
 @Component({
   selector: 'app-consufin-role-center',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BackButtonComponent],
   template: `
     <div class="min-h-screen bg-gray-50 p-6">
       <div class="max-w-5xl mx-auto bg-white rounded-xl shadow p-6">
+        <app-back-button />
         <h2 class="text-2xl font-bold text-gray-900 mb-4">Centro de Roles</h2>
 
         <div class="flex gap-2 mb-6">

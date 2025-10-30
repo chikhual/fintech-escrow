@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BackButtonComponent } from './back-button.component';
 
 @Component({
   selector: 'app-consufin-kyc',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BackButtonComponent],
   template: `
     <div class="min-h-screen bg-gray-50 p-6">
       <div class="max-w-3xl mx-auto bg-white rounded-xl shadow p-6">
+        <app-back-button />
         <h2 class="text-2xl font-bold text-gray-900 mb-4">Validación KYC/AML</h2>
         <ul class="list-disc ml-6 text-gray-700 space-y-1">
           <li>CURP</li>

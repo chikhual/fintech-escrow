@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
             <h1 class="text-xl font-bold text-gray-900">CONSUFIN</h1>
           </div>
           <nav class="hidden lg:flex items-center gap-4 text-sm">
+            <a routerLink="/consufin/comprador" class="text-gray-600 hover:text-gray-900">Comprador</a>
             <a routerLink="/consufin/transacciones" class="text-gray-600 hover:text-gray-900">Mis transacciones</a>
             <a routerLink="/consufin/integraciones" class="text-gray-600 hover:text-gray-900">Integraciones</a>
             <a routerLink="/consufin/validacion" class="text-gray-600 hover:text-gray-900">Validación KYC</a>
@@ -40,6 +41,7 @@ import { RouterModule } from '@angular/router';
               </button>
             </div>
             <nav class="mt-6 space-y-2 text-base">
+              <a (click)="mobileOpen=false" routerLink="/consufin/comprador" class="block rounded px-3 py-2 hover:bg-gray-50">Comprador</a>
               <a (click)="mobileOpen=false" routerLink="/consufin/transacciones" class="block rounded px-3 py-2 hover:bg-gray-50">Mis transacciones</a>
               <a (click)="mobileOpen=false" routerLink="/consufin/integraciones" class="block rounded px-3 py-2 hover:bg-gray-50">Integraciones</a>
               <a (click)="mobileOpen=false" routerLink="/consufin/validacion" class="block rounded px-3 py-2 hover:bg-gray-50">Validación KYC</a>
@@ -109,9 +111,10 @@ import { RouterModule } from '@angular/router';
           <h3 class="font-semibold text-gray-900 mb-4">Otros servicios</h3>
           <div class="grid md:grid-cols-2 gap-6">
             <div class="bg-white rounded-lg shadow p-6">
-              <h4 class="font-semibold text-gray-900 mb-1">Préstamos</h4>
-              <p class="text-gray-600 text-sm mb-4">Financiamiento respaldado por flujo ESCROW.</p>
-              <div class="flex gap-3">
+              <h4 class="font-semibold text-gray-900 mb-2">Préstamos CONSUFIN</h4>
+              <p class="text-gray-600 text-sm mb-4">Crédito empresarial y personal con cálculo en línea. Simula tu crédito y conoce plazos, tasas y requisitos.</p>
+              <div class="flex flex-wrap gap-3">
+                <a href="https://www.consufin.com.mx/#/Cotizar" target="_blank" rel="noopener" class="px-4 py-2 bg-indigo-600 text-white rounded">Ir al simulador</a>
                 <a routerLink="/consufin/contacto" class="px-4 py-2 border rounded">Solicitar información</a>
                 <a routerLink="/consufin/ayuda" class="px-4 py-2 text-indigo-600">Ver requisitos →</a>
               </div>
@@ -146,31 +149,31 @@ import { RouterModule } from '@angular/router';
               <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
                 <span class="text-emerald-600 text-2xl">1</span>
               </div>
-              <p class="mt-3 text-xs text-gray-700">Buyer y Seller acuerdan términos</p>
+              <p class="mt-3 text-xs text-gray-700">Comprador y Vendedor acuerdan términos</p>
             </div>
             <div>
               <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
                 <span class="text-emerald-600 text-2xl">2</span>
               </div>
-              <p class="mt-3 text-xs text-gray-700">Buyer deposita el pago en Escrow</p>
+              <p class="mt-3 text-xs text-gray-700">Comprador deposita el pago en custodia</p>
             </div>
             <div>
               <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
                 <span class="text-emerald-600 text-2xl">3</span>
               </div>
-              <p class="mt-3 text-xs text-gray-700">Seller entrega bienes o servicios</p>
+              <p class="mt-3 text-xs text-gray-700">Vendedor entrega bienes o servicios</p>
             </div>
             <div>
               <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
                 <span class="text-emerald-600 text-2xl">4</span>
               </div>
-              <p class="mt-3 text-xs text-gray-700">Buyer aprueba la recepción</p>
+              <p class="mt-3 text-xs text-gray-700">Comprador aprueba la recepción</p>
             </div>
             <div>
               <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
                 <span class="text-emerald-600 text-2xl">5</span>
               </div>
-              <p class="mt-3 text-xs text-gray-700">Escrow libera fondos al Seller</p>
+              <p class="mt-3 text-xs text-gray-700">CONSUFIN libera fondos al Vendedor</p>
             </div>
           </div>
           <div class="mt-8 flex flex-col items-center gap-3">
@@ -228,88 +231,7 @@ import { RouterModule } from '@angular/router';
           </div>
         </section>
 
-        <!-- Sección bento oscura (adaptación Tailwind) -->
-        <section class="bg-gray-900 rounded-2xl p-8 sm:p-12 mb-12">
-          <div class="mx-auto max-w-2xl lg:max-w-7xl">
-            <h2 class="text-center text-sm font-semibold text-indigo-400">Opera más rápido</h2>
-            <p class="mx-auto mt-2 max-w-lg text-center text-3xl sm:text-4xl font-semibold tracking-tight text-white">
-              Todo lo que necesitas para desplegar tu operación
-            </p>
-            <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
-              <!-- Mobile friendly -->
-              <div class="relative lg:row-span-2">
-                <div class="absolute inset-px rounded-lg bg-gray-800 lg:rounded-l-[2rem]"></div>
-                <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(0.5rem+1px)] lg:rounded-l-[calc(2rem+1px)]">
-                  <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                    <p class="mt-2 text-lg font-medium tracking-tight text-white text-center lg:text-left">Compatible con móvil</p>
-                    <p class="mt-2 max-w-lg text-sm text-gray-400 text-center lg:text-left">
-                      Diseñado first-mobile y optimizado para cargas rápidas.
-                    </p>
-                  </div>
-                  <div class="relative min-h-[480px] w-full grow max-lg:mx-auto max-lg:max-w-sm">
-                    <div class="absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[48px] border-x-[12px] border-t-[12px] border-gray-700 bg-gray-900 outline outline-white/20">
-                      <img alt="" src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-mobile-friendly.png" class="h-full w-full object-cover object-top" />
-                    </div>
-                  </div>
-                </div>
-                <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15 lg:rounded-l-[2rem]"></div>
-              </div>
-
-              <!-- Performance -->
-              <div class="relative">
-                <div class="absolute inset-px rounded-lg bg-gray-800"></div>
-                <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(0.5rem+1px)]">
-                  <div class="px-8 pt-8 sm:px-10 sm:pt-10">
-                    <p class="mt-2 text-lg font-medium tracking-tight text-white text-center lg:text-left">Rendimiento</p>
-                    <p class="mt-2 max-w-lg text-sm text-gray-400 text-center lg:text-left">Angular + Tailwind para UI ágil y accesible.</p>
-                  </div>
-                  <div class="flex flex-1 items-center justify-center px-8 sm:px-10 pb-4 lg:pb-2">
-                    <img alt="" src="https://tailwindcss.com/plus-assets/img/component-images/dark-bento-03-performance.png" class="w-full max-lg:max-w-xs" />
-                  </div>
-                </div>
-                <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15"></div>
-              </div>
-
-              <!-- Security -->
-              <div class="relative lg:col-start-2 lg:row-start-2">
-                <div class="absolute inset-px rounded-lg bg-gray-800"></div>
-                <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(0.5rem+1px)]">
-                  <div class="px-8 pt-8 sm:px-10 sm:pt-10">
-                    <p class="mt-2 text-lg font-medium tracking-tight text-white text-center lg:text-left">Seguridad</p>
-                    <p class="mt-2 max-w-lg text-sm text-gray-400 text-center lg:text-left">KYC/AML, auditoría y notificaciones.</p>
-                  </div>
-                  <div class="flex flex-1 items-center justify-center py-6 lg:pb-2">
-                    <img alt="" src="https://tailwindcss.com/plus-assets/img/component-images/dark-bento-03-security.png" class="h-[152px] object-cover" />
-                  </div>
-                </div>
-                <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15"></div>
-              </div>
-
-              <!-- APIs -->
-              <div class="relative lg:row-span-2">
-                <div class="absolute inset-px rounded-lg bg-gray-800"></div>
-                <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(0.5rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
-                  <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                    <p class="mt-2 text-lg font-medium tracking-tight text-white text-center lg:text-left">APIs poderosas</p>
-                    <p class="mt-2 max-w-lg text-sm text-gray-400 text-center lg:text-left">Webhooks y REST para integraciones.</p>
-                  </div>
-                  <div class="relative min-h-[480px] w-full grow">
-                    <div class="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-gray-900/60 outline outline-white/10">
-                      <div class="flex bg-gray-900 outline outline-white/5">
-                        <div class="-mb-px flex text-sm font-medium text-gray-400">
-                          <div class="border-r border-b border-r-white/10 border-b-white/20 bg-white/5 px-4 py-2 text-white">notification.ts</div>
-                          <div class="border-r border-gray-600/10 px-4 py-2">app.ts</div>
-                        </div>
-                      </div>
-                      <div class="px-6 pt-6 pb-14 text-gray-400 text-sm">// Ejemplo de integración vendrá aquí</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-white/15 lg:rounded-r-[2rem]"></div>
-              </div>
-            </div>
-          </div>
-        </section>
+        
 
         <section class="bg-white rounded-xl shadow p-6 mb-12">
           <h3 class="font-semibold text-gray-900 mb-4">Opciones de inicio</h3>

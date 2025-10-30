@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { BackButtonComponent } from './back-button.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-consufin-wizard',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, BackButtonComponent],
   template: `
     <div class="min-h-screen bg-gray-50 p-6">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl font-bold text-gray-900 mb-6">Nueva transacción</h2>
+        <app-back-button />
 
         <div class="bg-white rounded-xl shadow p-6 space-y-6">
           <div class="grid md:grid-cols-4 gap-4">
@@ -45,20 +47,23 @@ import { FormsModule } from '@angular/forms';
                 <option>50% - 50%</option>
                 <option>Personalizar</option>
               </select>
-            <div *ngIf="feePayer==='Personalizar'" class="mt-2 text-sm bg-gray-50 border rounded p-3">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div class="md:col-span-2">
+            <div *ngIf="feePayer==='Personalizar'" class="mt-3 text-sm bg-gray-50 border rounded p-4">
+              <div class="flex flex-col md:flex-row md:items-end md:gap-6">
+                <div class="flex-1 mb-3 md:mb-0">
                   <label class="block mb-1 text-gray-700">Otra parte</label>
                   <select class="w-full border rounded px-3 py-2" [(ngModel)]="customOtherRole" [ngModelOptions]="{standalone: true}">
                     <option *ngFor="let opt of counterpartyOptions" [value]="opt">{{ opt }}</option>
                   </select>
                 </div>
-                <div>
+                <div class="w-full md:w-64">
                   <label class="block mb-1 text-gray-700">% que paga {{ role }}</label>
-                  <input type="number" min="0" max="100" class="w-full border rounded px-3 py-2" [(ngModel)]="customPercentSelf" [ngModelOptions]="{standalone: true}" (input)="recalcPercent()" />
-                  <p class="text-xs text-gray-500 mt-1">{{ customPercentOther }}% lo paga {{ customOtherRole }}</p>
+                  <div class="flex items-center gap-2">
+                    <input type="number" min="0" max="100" class="flex-1 border rounded px-3 py-2" [(ngModel)]="customPercentSelf" [ngModelOptions]="{standalone: true}" (input)="recalcPercent()" />
+                    <span class="text-gray-600 whitespace-nowrap">/ 100%</span>
+                  </div>
                 </div>
               </div>
+              <p class="mt-2 text-gray-600">Resultado: <strong>{{ customPercentSelf || 0 }}%</strong> lo paga {{ role }} y <strong>{{ customPercentOther }}%</strong> lo paga {{ customOtherRole || 'la otra parte' }}.</p>
             </div>
             </div>
           </div>
