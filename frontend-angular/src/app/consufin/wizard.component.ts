@@ -101,7 +101,7 @@ import { FormsModule } from '@angular/forms';
             <h3 class="font-semibold text-gray-900 mb-2">Resumen</h3>
             <ul class="text-gray-700 text-sm">
               <li>Subtotal: —</li>
-              <li>Comisión ESCROW: —</li>
+              <li>Comisión CONSUFIN: —</li>
               <li>Precio comprador / Proceeds vendedor: —</li>
             </ul>
           </div>

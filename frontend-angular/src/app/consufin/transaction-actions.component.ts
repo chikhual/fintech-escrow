@@ -50,11 +50,17 @@ import { BackButtonComponent } from './back-button.component';
           <button (click)="openUpload('entrega')"
                   [ngClass]="evidenceEntrega>0 ? 'bg-emerald-600 text-white' : 'bg-gray-100 text-gray-800'"
                   class="px-4 py-3 border rounded">Subir evidencia de entrega</button>
-          <button *ngIf="deliveryConfirmed" (click)="openApproveDispute()" class="px-4 py-3 border rounded md:col-span-2 bg-gray-100 text-gray-800">Aprobar / Disputar</button>
+          <button *ngIf="deliveryConfirmed" (click)="openApproveDispute()" 
+                  [ngClass]="{
+                    'bg-emerald-600 text-white': approved,
+                    'bg-red-600 text-white': disputed,
+                    'bg-gray-100 text-gray-800': !approved && !disputed
+                  }"
+                  class="px-4 py-3 border rounded md:col-span-2">Aprobar / Disputar</button>
         </div>
 
         <div class="flex justify-end">
-          <a [class.opacity-50]="!deposited" [class.pointer-events-none]="!deposited" routerLink="/consufin/transaccion/preview#details" class="px-4 py-2 bg-indigo-600 text-white rounded">Continuar a distribución</a>
+          <a [class.opacity-50]="!canContinue" [class.pointer-events-none]="!canContinue" routerLink="/consufin/transaccion/preview#details" class="px-4 py-2 bg-indigo-600 text-white rounded">Continuar a distribución</a>
         </div>
 
         <!-- Modal: Subir evidencia -->
@@ -117,6 +123,12 @@ export class ConsufinTransactionActionsComponent {
   decision: 'accepted' | 'rejected' | '' = '';
   evidenceEnvio = 0;
   evidenceEntrega = 0;
+  approved = false;
+  disputed = false;
+  
+  get canContinue(): boolean {
+    return this.deposited || this.approved;
+  }
 
   constructor() {
     try {
@@ -143,8 +155,18 @@ export class ConsufinTransactionActionsComponent {
   reject() { this.decision = 'rejected'; this.showAcceptReject = false; location.assign('/consufin/transaccion/rechazo'); }
   deposit() { this.deposited = true; this.currentStep = Math.max(this.currentStep, 3); }
   openApproveDispute() { this.showApproveDispute = true; }
-  approve() { this.showApproveDispute = false; this.currentStep = Math.max(this.currentStep, 4); }
-  dispute() { this.showApproveDispute = false; location.assign('/consufin/transaccion/disputa'); }
+  approve() { 
+    this.approved = true; 
+    this.disputed = false;
+    this.showApproveDispute = false; 
+    this.currentStep = Math.max(this.currentStep, 4); 
+  }
+  dispute() { 
+    this.disputed = true;
+    this.approved = false;
+    this.showApproveDispute = false; 
+    location.assign('/consufin/transaccion/disputa'); 
+  }
   closeModals() { this.showUpload = this.showAcceptReject = this.showApproveDispute = false; }
 
   tempFilesCount = 0;

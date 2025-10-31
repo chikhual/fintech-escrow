@@ -107,6 +107,87 @@ import { RouterModule } from '@angular/router';
           </div>
         </section>
 
+        <!-- Otros servicios que ofrecemos (bento claro) -->
+        <section class="bg-gray-50 rounded-2xl p-8 sm:p-12 mb-12">
+          <div class="mx-auto max-w-2xl lg:max-w-7xl">
+            <h2 class="text-center text-sm font-semibold text-indigo-600">CONSUFIN</h2>
+            <p class="mx-auto mt-2 max-w-lg text-center text-3xl sm:text-4xl font-semibold tracking-tight text-gray-900">
+              OTROS SERVICIOS QUE OFRECEMOS
+            </p>
+            <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
+              <!-- Préstamos empresariales (alto) -->
+              <div class="relative lg:row-span-2">
+                <div class="absolute inset-px rounded-lg bg-white lg:rounded-l-3xl"></div>
+                <div class="relative flex h-full flex-col overflow-hidden rounded-lg lg:rounded-l-3xl">
+                  <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
+                    <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">PRESTAMOS EMPRESARIALES</p>
+                    <p class="mt-2 max-w-lg text-sm text-gray-600 text-center lg:text-left">Crédito empresarial y personal con cálculo en línea. Simula tu crédito y conoce plazos, tasas y requisitos.</p>
+                  </div>
+                  <div class="relative min-h-[320px] w-full grow max-lg:mx-auto max-lg:max-w-sm">
+                    <div class="absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[32px] border-x-[12px] border-t-[12px] border-gray-700 bg-gray-900 shadow-2xl">
+                      <img alt="" src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-mobile-friendly.png" class="h-full w-full object-cover object-top" />
+                    </div>
+                  </div>
+                </div>
+                <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-black/5 lg:rounded-l-3xl"></div>
+              </div>
+
+              <!-- Calculadora costos -->
+              <div class="relative">
+                <div class="absolute inset-px rounded-lg bg-white"></div>
+                <div class="relative flex h-full flex-col overflow-hidden rounded-lg">
+                  <div class="px-8 pt-8 sm:px-10 sm:pt-10">
+                    <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">CALCULADORA COSTOS</p>
+                    <p class="mt-2 max-w-lg text-sm text-gray-600 text-center lg:text-left">Verifica las comisiones con base a los montos.</p>
+                  </div>
+                  <div class="flex flex-1 items-center justify-center px-8 sm:px-10 pb-6 lg:pb-2">
+                    <img alt="" src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-performance.png" class="w-full max-lg:max-w-xs" />
+                  </div>
+                </div>
+                <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-black/5"></div>
+              </div>
+
+              <!-- Cargas masivas -->
+              <div class="relative lg:col-start-2 lg:row-start-2">
+                <div class="absolute inset-px rounded-lg bg-white"></div>
+                <div class="relative flex h-full flex-col overflow-hidden rounded-lg">
+                  <div class="px-8 pt-8 sm:px-10 sm:pt-10">
+                    <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">CARGAS MASIVAS</p>
+                    <p class="mt-2 max-w-lg text-sm text-gray-600 text-center lg:text-left">Plantillas precreadas para altas de múltiples productos/servicios.</p>
+                  </div>
+                  <div class="flex flex-1 items-center justify-center py-6 lg:pb-2">
+                    <img alt="" src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-security.png" class="h-[152px] object-cover" />
+                  </div>
+                </div>
+                <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-black/5"></div>
+              </div>
+
+              <!-- Acompañamiento (alto) -->
+              <div class="relative lg:row-span-2">
+                <div class="absolute inset-px rounded-lg bg-white lg:rounded-r-3xl"></div>
+                <div class="relative flex h-full flex-col overflow-hidden rounded-lg lg:rounded-r-3xl">
+                  <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
+                    <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">ACOMPAÑAMIENTO</p>
+                    <p class="mt-2 max-w-lg text-sm text-gray-600 text-center lg:text-left">Asesor especializado (opcional).</p>
+                  </div>
+                  <div class="relative min-h-[320px] w-full grow">
+                    <div class="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-gray-900 shadow-2xl outline outline-white/10">
+                      <div class="flex bg-gray-900 outline outline-white/5">
+                        <div class="-mb-px flex text-sm font-medium text-gray-400">
+                          <div class="border-r border-b border-r-white/10 border-b-white/20 bg-white/5 px-4 py-2 text-white">NotificationSetting.jsx</div>
+                          <div class="border-r border-gray-600/10 px-4 py-2">App.jsx</div>
+                        </div>
+                      </div>
+                      <div class="px-6 pt-6 pb-14 text-gray-300 text-sm">{/* Ejemplo de código / demo */}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-black/5 lg:rounded-r-3xl"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class="mb-12">
           <h3 class="font-semibold text-gray-900 mb-4">Otros servicios</h3>
           <div class="grid md:grid-cols-2 gap-6">
@@ -144,18 +225,30 @@ import { RouterModule } from '@angular/router';
           <p class="text-gray-800 text-center mb-8">
             La página despliega una visualización del proceso por medio de íconos. Así funciona el ESCROW:
           </p>
-          <div class="grid grid-cols-5 gap-6 items-start text-center">
+          <div class="grid grid-cols-9 gap-6 items-start text-center">
             <div>
               <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
                 <span class="text-emerald-600 text-2xl">1</span>
               </div>
               <p class="mt-3 text-xs text-gray-700">Comprador y Vendedor acuerdan términos</p>
             </div>
+            <div class="hidden md:flex items-center justify-center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6 text-emerald-600">
+                <path d="M4 12h14" />
+                <path d="M14 6l6 6-6 6" />
+              </svg>
+            </div>
             <div>
               <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
                 <span class="text-emerald-600 text-2xl">2</span>
               </div>
-              <p class="mt-3 text-xs text-gray-700">Comprador deposita el pago en custodia</p>
+              <p class="mt-3 text-xs text-gray-700">Comprador deposita el pago en custodia a CONSUFIN</p>
+            </div>
+            <div class="hidden md:flex items-center justify-center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6 text-emerald-600">
+                <path d="M4 12h14" />
+                <path d="M14 6l6 6-6 6" />
+              </svg>
             </div>
             <div>
               <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
@@ -163,11 +256,23 @@ import { RouterModule } from '@angular/router';
               </div>
               <p class="mt-3 text-xs text-gray-700">Vendedor entrega bienes o servicios</p>
             </div>
+            <div class="hidden md:flex items-center justify-center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6 text-emerald-600">
+                <path d="M4 12h14" />
+                <path d="M14 6l6 6-6 6" />
+              </svg>
+            </div>
             <div>
               <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
                 <span class="text-emerald-600 text-2xl">4</span>
               </div>
               <p class="mt-3 text-xs text-gray-700">Comprador aprueba la recepción</p>
+            </div>
+            <div class="hidden md:flex items-center justify-center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-6 w-6 text-emerald-600">
+                <path d="M4 12h14" />
+                <path d="M14 6l6 6-6 6" />
+              </svg>
             </div>
             <div>
               <div class="mx-auto h-16 w-16 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
@@ -231,86 +336,80 @@ import { RouterModule } from '@angular/router';
           </div>
         </section>
 
-        
-
-        <section class="bg-white rounded-xl shadow p-6 mb-12">
-          <h3 class="font-semibold text-gray-900 mb-4">Opciones de inicio</h3>
-          <div class="grid sm:grid-cols-3 gap-4">
-            <a routerLink="/consufin/transaccion/nueva" class="border rounded p-4 hover:bg-gray-50">
-              <div class="font-semibold">Soy Comprador</div>
-              <p class="text-sm text-gray-600">Deposita en custodia y recibe seguro.</p>
-            </a>
-            <a routerLink="/consufin/transaccion/nueva" class="border rounded p-4 hover:bg-gray-50">
-              <div class="font-semibold">Soy Vendedor</div>
-              <p class="text-sm text-gray-600">Entrega tras confirmación de fondos.</p>
-            </a>
-            <a routerLink="/consufin/transaccion/nueva" class="border rounded p-4 hover:bg-gray-50">
-              <div class="font-semibold">Soy Broker</div>
-              <p class="text-sm text-gray-600">Coordina documentos y fechas.</p>
-            </a>
-          </div>
-        </section>
-
-        <section class="grid md:grid-cols-2 gap-6 mb-12">
-          <div class="bg-white rounded-xl shadow p-6">
-            <h3 class="font-semibold text-gray-900 mb-2">QR de seguridad</h3>
-            <ul class="text-gray-700 list-disc ml-5 space-y-1 text-sm">
-              <li>QR público para brochures y anuncios.</li>
-              <li>QR restringido ligado a correo/teléfono del destinatario.</li>
-            </ul>
-          </div>
-          <div class="bg-white rounded-xl shadow p-6">
-            <h3 class="font-semibold text-gray-900 mb-2">Cargas masivas (CSV)</h3>
-            <p class="text-gray-700 text-sm">Plantillas precreadas para altas de múltiples productos/servicios.</p>
-          </div>
-        </section>
-
-        <section class="bg-white rounded-xl shadow p-6 mb-12">
-          <h3 class="font-semibold text-gray-900 mb-4">Distribución de pagos</h3>
-          <div class="text-sm text-gray-700">
-            <p class="mb-2">Define parcialidades, anticipos y liquidación. Incluye SPEI/SWIFT.</p>
-            <div class="overflow-x-auto">
-              <table class="min-w-full divide-y divide-gray-200 text-left">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th class="px-3 py-2">Fecha</th>
-                    <th class="px-3 py-2">Concepto</th>
-                    <th class="px-3 py-2">Monto</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y">
-                  <tr>
-                    <td class="px-3 py-2">Día 0</td>
-                    <td class="px-3 py-2">Depósito a custodia</td>
-                    <td class="px-3 py-2">—</td>
-                  </tr>
-                  <tr>
-                    <td class="px-3 py-2">Día N</td>
-                    <td class="px-3 py-2">Liberación tras aprobación</td>
-                    <td class="px-3 py-2">—</td>
-                  </tr>
-                </tbody>
-              </table>
+        <!-- Nuevo layout de workflow -->
+        <section class="overflow-hidden bg-white py-16 sm:py-24">
+          <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 sm:gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+              <div class="lg:pt-4 lg:pr-8">
+                <div class="lg:max-w-lg">
+                  <h2 class="text-sm font-semibold text-indigo-600">CONSUFIN</h2>
+                  <p class="mt-2 text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
+                    Operación más eficiente
+                  </p>
+                  <p class="mt-6 text-base text-gray-700">
+                    Gestiona tus transacciones con herramientas diseñadas para proteger compradores y vendedores. Custodia segura, verificación documental y flujo transparente.
+                  </p>
+                  <dl class="mt-10 max-w-xl space-y-6 text-sm text-gray-600 lg:max-w-none">
+                    <div *ngFor="let f of workflowFeatures" class="relative pl-9">
+                      <dt class="inline font-semibold text-gray-900">
+                        <span class="absolute top-1 left-1 h-5 w-5 text-indigo-600" [ngSwitch]="f.icon">
+                          <!-- cloud -->
+                          <svg *ngSwitchCase="'cloud'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
+                            <path d="M7 18a4 4 0 0 1 0-8 5 5 0 0 1 9.58-1.37A4.5 4.5 0 1 1 17.5 18H7Z"/>
+                            <path d="M12 12v8m0 0 3-3m-3 3-3-3"/>
+                          </svg>
+                          <!-- lock -->
+                          <svg *ngSwitchCase="'lock'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
+                            <rect x="6" y="10" width="12" height="8" rx="2"/>
+                            <path d="M8 10V7a4 4 0 1 1 8 0v3"/>
+                          </svg>
+                          <!-- server -->
+                          <svg *ngSwitchCase="'server'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
+                            <rect x="3" y="4" width="18" height="6" rx="2"/>
+                            <rect x="3" y="14" width="18" height="6" rx="2"/>
+                          </svg>
+                        </span>
+                        {{ f.name }}
+                      </dt>
+                      <dd class="inline"> {{ f.description }}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+              <img
+                alt="Product screenshot"
+                src="https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png"
+                class="w-full max-w-none rounded-xl shadow-xl ring-1 ring-gray-400/10 md:-ml-4 lg:-ml-0"
+              />
             </div>
           </div>
-        </section>
-
-        <section class="bg-white rounded-xl shadow p-6">
-          <h3 class="font-semibold text-gray-900 mb-4">Asesor especializado (opcional)</h3>
-          <p class="text-gray-700 text-sm mb-2">Para operaciones de alto valor (ej. > $800,000 MXN).</p>
-          <ul class="list-disc ml-5 text-gray-700 text-sm space-y-1">
-            <li>Revisión de documentos y términos</li>
-            <li>Mediación y definición de días de inspección</li>
-            <li>Servicio de resguardo para bienes intangibles</li>
-            <li>Negociación de quién cubre comisión (comprador/vendedor/mitad/personalizado)</li>
-          </ul>
         </section>
       </main>
     </div>
   `,
   styles: []
 })
-export class ConsufinHomeComponent { mobileOpen = false; }
+export class ConsufinHomeComponent { 
+  mobileOpen = false;
+  
+  workflowFeatures = [
+    { 
+      name: 'Sube y resguarda evidencias.', 
+      description: 'Carga comprobantes de pago, entrega y documentos en PDF o imagen con respaldo seguro.',
+      icon: 'cloud' 
+    },
+    { 
+      name: 'Certificados y cifrado.', 
+      description: 'Operaciones bajo custodia con verificación de identidad (KYC/AML) y buenas prácticas de seguridad.',
+      icon: 'lock' 
+    },
+    { 
+      name: 'Historial y respaldos.', 
+      description: 'Conserva el historial completo de transacciones y recupera tu información cuando la necesites.',
+      icon: 'server' 
+    }
+  ];
+}
 
 
 

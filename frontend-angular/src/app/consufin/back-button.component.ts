@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-back-button',
   standalone: true,
   template: `
-    <button (click)="goBack()" class="mb-4 inline-flex items-center gap-2 px-3 py-1.5 border rounded text-sm bg-gray-100 text-gray-800">
+    <button (click)="goBack()" class="mb-4 inline-flex items-center gap-2 px-3 py-1.5 border rounded text-sm bg-indigo-600 text-white hover:bg-indigo-700">
       ← Regresar
     </button>
   `,
