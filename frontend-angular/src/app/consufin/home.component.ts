@@ -19,7 +19,7 @@ import { RouterModule } from '@angular/router';
             <h1 class="text-xl font-bold text-gray-900">CONSUFIN</h1>
           </div>
           <nav class="hidden lg:flex items-center gap-4 text-sm">
-            <a routerLink="/consufin/comprador" class="text-gray-600 hover:text-gray-900">Comprador</a>
+              <a routerLink="/consufin/usuario" class="text-gray-600 hover:text-gray-900">Usuario</a>
             <a routerLink="/consufin/transacciones" class="text-gray-600 hover:text-gray-900">Mis transacciones</a>
             <a routerLink="/consufin/integraciones" class="text-gray-600 hover:text-gray-900">Integraciones</a>
             <a routerLink="/consufin/validacion" class="text-gray-600 hover:text-gray-900">Validación KYC</a>
@@ -41,7 +41,7 @@ import { RouterModule } from '@angular/router';
               </button>
             </div>
             <nav class="mt-6 space-y-2 text-base">
-              <a (click)="mobileOpen=false" routerLink="/consufin/comprador" class="block rounded px-3 py-2 hover:bg-gray-50">Comprador</a>
+                <a (click)="mobileOpen=false" routerLink="/consufin/usuario" class="block rounded px-3 py-2 hover:bg-gray-50">Usuario</a>
               <a (click)="mobileOpen=false" routerLink="/consufin/transacciones" class="block rounded px-3 py-2 hover:bg-gray-50">Mis transacciones</a>
               <a (click)="mobileOpen=false" routerLink="/consufin/integraciones" class="block rounded px-3 py-2 hover:bg-gray-50">Integraciones</a>
               <a (click)="mobileOpen=false" routerLink="/consufin/validacion" class="block rounded px-3 py-2 hover:bg-gray-50">Validación KYC</a>
@@ -445,7 +445,7 @@ import { RouterModule } from '@angular/router';
                   <ul role="list" class="mt-6 space-y-4">
                     <li><a routerLink="/consufin/transaccion/nueva" class="text-sm text-gray-600 hover:text-indigo-600">Nueva transacción</a></li>
                     <li><a routerLink="/consufin/calculadora" class="text-sm text-gray-600 hover:text-indigo-600">Calculadora de costos</a></li>
-                    <li><a routerLink="/consufin/comprador" class="text-sm text-gray-600 hover:text-indigo-600">Portal Comprador</a></li>
+                    <li><a routerLink="/consufin/usuario" class="text-sm text-gray-600 hover:text-indigo-600">Portal de Usuario</a></li>
                     <li><a routerLink="/consufin/roles" class="text-sm text-gray-600 hover:text-indigo-600">Centro de Roles</a></li>
                     <li><a routerLink="/consufin/integraciones" class="text-sm text-gray-600 hover:text-indigo-600">Integraciones</a></li>
                   </ul>
