@@ -138,10 +138,12 @@ import { RouterModule } from '@angular/router';
                 <div class="relative flex h-full flex-col overflow-hidden rounded-lg">
                   <div class="px-8 pt-8 sm:px-10 sm:pt-10">
                     <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">CALCULADORA COSTOS</p>
-                    <p class="mt-2 max-w-lg text-sm text-gray-600 text-center lg:text-left">Verifica las comisiones con base a los montos.</p>
+                    <p class="mt-2 max-w-lg text-sm text-gray-600 text-center lg:text-left">Verifica las comisiones con base a los montos de las transacciones y determina quien debe de pagarlo</p>
                   </div>
                   <div class="flex flex-1 items-center justify-center px-8 sm:px-10 pb-6 lg:pb-2">
-                    <img alt="" src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-performance.png" class="w-full max-lg:max-w-xs" />
+                    <a routerLink="/consufin/calculadora" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition text-center">
+                      CALCULADORA
+                    </a>
                   </div>
                 </div>
                 <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-black/5"></div>
