@@ -168,19 +168,43 @@ import { RouterModule } from '@angular/router';
               <div class="relative lg:row-span-2">
                 <div class="absolute inset-px rounded-lg bg-white lg:rounded-r-3xl"></div>
                 <div class="relative flex h-full flex-col overflow-hidden rounded-lg lg:rounded-r-3xl">
-                  <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
+                  <div class="px-8 pt-8 sm:px-10 sm:pt-10">
                     <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">ACOMPAÑAMIENTO</p>
-                    <p class="mt-2 max-w-lg text-sm text-gray-600 text-center lg:text-left">Asesor especializado (opcional).</p>
+                    <p class="mt-3 max-w-lg text-sm text-gray-700 text-center lg:text-left leading-relaxed">
+                      En transacciones importantes (superiores a $800,000) o al negociar bienes intangibles, la confianza lo es todo. Nuestro servicio de Asesoría protege tu patrimonio y asegura un trato justo. 🤝
+                    </p>
                   </div>
-                  <div class="relative min-h-[320px] w-full grow">
-                    <div class="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-gray-900 shadow-2xl outline outline-white/10">
-                      <div class="flex bg-gray-900 outline outline-white/5">
-                        <div class="-mb-px flex text-sm font-medium text-gray-400">
-                          <div class="border-r border-b border-r-white/10 border-b-white/20 bg-white/5 px-4 py-2 text-white">NotificationSetting.jsx</div>
-                          <div class="border-r border-gray-600/10 px-4 py-2">App.jsx</div>
+                  <div class="px-8 pb-8 sm:px-10 sm:pb-10 flex-1 overflow-y-auto">
+                    <h4 class="mt-6 text-base font-semibold text-gray-900 mb-4 text-center lg:text-left">¿Qué hace nuestro Asesor por ti?</h4>
+                    <div class="space-y-4 text-sm text-gray-700">
+                      <div class="flex items-start gap-3">
+                        <span class="text-xl flex-shrink-0">⚖️</span>
+                        <div>
+                          <p class="font-semibold text-gray-900">ANÁLISIS DE LA NEGOCIACIÓN</p>
+                          <p class="mt-1 text-gray-600">Revisamos a fondo los términos del trato y las condiciones de pago.</p>
                         </div>
                       </div>
-                      <div class="px-6 pt-6 pb-14 text-gray-300 text-sm"><!-- Ejemplo de código / demo --></div>
+                      <div class="flex items-start gap-3">
+                        <span class="text-xl flex-shrink-0">📞</span>
+                        <div>
+                          <p class="font-semibold text-gray-900">COMUNICACIÓN EFECTIVA</p>
+                          <p class="mt-1 text-gray-600">Somos el puente neutral entre ambas partes, facilitando la comunicación en conjunto y en privado.</p>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-3">
+                        <span class="text-xl flex-shrink-0">⏱️</span>
+                        <div>
+                          <p class="font-semibold text-gray-900">NEGOCIACIÓN DE INSPECCIÓN</p>
+                          <p class="mt-1 text-gray-600">Ayudamos a definir el "Periodo de Inspección" clave antes de liberar el pago.</p>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-3">
+                        <span class="text-xl flex-shrink-0">🔐</span>
+                        <div>
+                          <p class="font-semibold text-gray-900">SERVICIO DE RESGUARDO (ESCROW)</p>
+                          <p class="mt-1 text-gray-600">Para bienes intangibles (Dominios, Propiedad Intelectual, etc.), custodiamos el bien hasta que se complete el pago.</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
