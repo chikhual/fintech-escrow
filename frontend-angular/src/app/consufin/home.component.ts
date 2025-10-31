@@ -188,37 +188,6 @@ import { RouterModule } from '@angular/router';
           </div>
         </section>
 
-        <section class="mb-12">
-          <h3 class="font-semibold text-gray-900 mb-4">Otros servicios</h3>
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white rounded-lg shadow p-6">
-              <h4 class="font-semibold text-gray-900 mb-2">Préstamos CONSUFIN</h4>
-              <p class="text-gray-600 text-sm mb-4">Crédito empresarial y personal con cálculo en línea. Simula tu crédito y conoce plazos, tasas y requisitos.</p>
-              <div class="flex flex-wrap gap-3">
-                <a href="https://www.consufin.com.mx/#/Cotizar" target="_blank" rel="noopener" class="px-4 py-2 bg-indigo-600 text-white rounded">Ir al simulador</a>
-                <a routerLink="/consufin/contacto" class="px-4 py-2 border rounded">Solicitar información</a>
-                <a routerLink="/consufin/ayuda" class="px-4 py-2 text-indigo-600">Ver requisitos →</a>
-              </div>
-            </div>
-            <div class="bg-white rounded-lg shadow p-6">
-              <h4 class="font-semibold text-gray-900 mb-1">Oferta x ESCROW</h4>
-              <p class="text-gray-600 text-sm mb-4">Promociona bienes con enlace seguro (QR/Link) y genera confianza.</p>
-              <div class="flex gap-3">
-                <a routerLink="/consufin/transaccion/nueva" class="px-4 py-2 bg-indigo-600 text-white rounded">Crear oferta</a>
-                <a routerLink="/consufin/faq" class="px-4 py-2 text-indigo-600">Cómo funciona →</a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="bg-white rounded-xl shadow p-6 mb-12">
-          <h3 class="font-semibold text-gray-900 mb-4">Beneficios</h3>
-          <div class="grid md:grid-cols-3 gap-6 text-gray-700">
-            <div>✔ Custodia de fondos con trazabilidad</div>
-            <div>✔ Validación KYC/AML y verificación documental</div>
-            <div>✔ Notificaciones y línea de tiempo del proceso</div>
-          </div>
-        </section>
 
         <!-- Proceso en 5 pasos (según imagen de referencia) -->
         <section class="bg-white rounded-xl shadow p-8 mb-12">
