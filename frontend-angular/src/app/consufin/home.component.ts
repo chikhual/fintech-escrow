@@ -119,13 +119,35 @@ import { RouterModule } from '@angular/router';
               <div class="relative lg:row-span-2">
                 <div class="absolute inset-px rounded-lg bg-white lg:rounded-l-3xl"></div>
                 <div class="relative flex h-full flex-col overflow-hidden rounded-lg lg:rounded-l-3xl">
-                  <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
-                    <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">PRESTAMOS EMPRESARIALES</p>
-                    <p class="mt-2 max-w-lg text-sm text-gray-600 text-center lg:text-left">Crédito empresarial y personal con cálculo en línea. Simula tu crédito y conoce plazos, tasas y requisitos.</p>
+                  <div class="px-8 pt-8 sm:px-10 sm:pt-10">
+                    <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">PRÉSTAMO O CRÉDITO RESPONSABLE</p>
+                    <p class="mt-3 max-w-lg text-sm text-gray-700 text-center lg:text-left leading-relaxed mb-4">
+                      Entendemos crédito responsable como aquel que sirve para los siguientes cuatro propósitos:
+                    </p>
                   </div>
-                  <div class="relative min-h-[320px] w-full grow max-lg:mx-auto max-lg:max-w-sm">
-                    <div class="absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[32px] border-x-[12px] border-t-[12px] border-gray-700 bg-gray-900 shadow-2xl">
-                      <img alt="" src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-mobile-friendly.png" class="h-full w-full object-cover object-top" />
+                  <div class="px-8 pb-8 sm:px-10 sm:pb-10 flex-1 overflow-y-auto">
+                    <ul class="space-y-3 text-sm text-gray-700">
+                      <li class="flex items-start gap-3">
+                        <span class="text-indigo-600 font-bold mt-0.5">•</span>
+                        <span class="flex-1">Generación de dinero</span>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="text-indigo-600 font-bold mt-0.5">•</span>
+                        <span class="flex-1">Financiamiento para solucionar contingencias.</span>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="text-indigo-600 font-bold mt-0.5">•</span>
+                        <span class="flex-1">Financiamiento para aprovechar oportunidades.</span>
+                      </li>
+                      <li class="flex items-start gap-3">
+                        <span class="text-indigo-600 font-bold mt-0.5">•</span>
+                        <span class="flex-1">Financiamiento para cancelación de deuda.</span>
+                      </li>
+                    </ul>
+                    <div class="mt-6 text-center lg:text-left">
+                      <a href="https://www.consufin.com.mx/#/Cotizar" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition">
+                        Más información
+                      </a>
                     </div>
                   </div>
                 </div>
