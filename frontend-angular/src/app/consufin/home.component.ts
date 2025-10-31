@@ -178,7 +178,7 @@ import { RouterModule } from '@angular/router';
                           <div class="border-r border-gray-600/10 px-4 py-2">App.jsx</div>
                         </div>
                       </div>
-                      <div class="px-6 pt-6 pb-14 text-gray-300 text-sm">{/* Ejemplo de código / demo */}</div>
+                      <div class="px-6 pt-6 pb-14 text-gray-300 text-sm"><!-- Ejemplo de código / demo --></div>
                     </div>
                   </div>
                 </div>
@@ -371,7 +371,7 @@ import { RouterModule } from '@angular/router';
                         </span>
                         {{ f.name }}
                       </dt>
-                      <dd class="inline"> {{ f.description }}</dd>
+                      <dd class="inline">{{ f.description }}</dd>
                     </div>
                   </dl>
                 </div>
