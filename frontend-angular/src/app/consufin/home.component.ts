@@ -355,6 +355,35 @@ import { RouterModule } from '@angular/router';
         </section>
       </main>
 
+      <!-- Equipo -->
+      <section class="bg-white py-16 sm:py-24">
+        <div class="mx-auto grid max-w-7xl gap-12 px-6 lg:px-8 xl:grid-cols-3">
+          <div class="max-w-xl">
+            <h2 class="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
+              Conoce a nuestro equipo
+            </h2>
+            <p class="mt-6 text-base text-gray-600">
+              Somos un equipo dinámico apasionado por lo que hacemos y comprometidos con ofrecer los mejores resultados para nuestros clientes.
+            </p>
+          </div>
+          <ul role="list" class="grid gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-12 xl:col-span-2">
+            <li *ngFor="let person of teamMembers">
+              <div class="flex items-center gap-x-6">
+                <img
+                  [alt]="person.name"
+                  [src]="person.imageUrl"
+                  class="h-16 w-16 rounded-full outline-1 -outline-offset-1 outline-black/5"
+                />
+                <div>
+                  <h3 class="text-base font-semibold tracking-tight text-gray-900">{{ person.name }}</h3>
+                  <p class="text-sm font-semibold text-indigo-600">{{ person.role }}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
       <!-- Footer -->
       <footer class="bg-white border-t">
         <div class="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
@@ -484,6 +513,39 @@ export class ConsufinHomeComponent {
       name: 'Historial y respaldos.', 
       description: 'Conserva el historial completo de transacciones y recupera tu información cuando la necesites.',
       icon: 'server' 
+    }
+  ];
+
+  teamMembers = [
+    {
+      name: 'Leslie Alexander',
+      role: 'Co-Fundador / CEO',
+      imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+    },
+    {
+      name: 'Michael Foster',
+      role: 'Co-Fundador / CTO',
+      imageUrl: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+    },
+    {
+      name: 'Dries Vincent',
+      role: 'Relaciones Comerciales',
+      imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+    },
+    {
+      name: 'Lindsay Walton',
+      role: 'Desarrollador Front-end',
+      imageUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+    },
+    {
+      name: 'Courtney Henry',
+      role: 'Diseñador',
+      imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+    },
+    {
+      name: 'Tom Cook',
+      role: 'Director de Producto',
+      imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
     }
   ];
 }
