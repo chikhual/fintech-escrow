@@ -193,11 +193,11 @@ import { RouterModule } from '@angular/router';
                   <div class="px-8 pt-8 sm:px-10 sm:pt-10">
                     <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">ACOMPAÑAMIENTO</p>
                     <p class="mt-3 max-w-lg text-sm text-gray-700 text-center lg:text-left leading-relaxed">
-                      En transacciones importantes (superiores a $800,000) o al negociar bienes intangibles, la confianza lo es todo. Nuestro servicio de Asesoría protege tu patrimonio y asegura un trato justo. 🤝
+                      En transacciones importantes (superiores a $800,000) o al negociar bienes intangibles, la confianza lo es todo. Nuestro servicio de Asesoría protege tu patrimonio y asegura un trato justo.
                     </p>
                   </div>
                   <div class="px-8 pb-8 sm:px-10 sm:pb-10 flex-1 overflow-y-auto">
-                    <h4 class="mt-6 text-base font-semibold text-gray-900 mb-4 text-center lg:text-left">¿Qué hace nuestro Asesor por ti?</h4>
+                    <h4 class="mt-6 text-base font-semibold text-gray-900 mb-4 text-center lg:text-left">¿Qué hace el Asesor por ti?</h4>
                     <div class="space-y-4 text-sm text-gray-700">
                       <div class="flex items-start gap-3">
                         <span class="text-xl flex-shrink-0">⚖️</span>
