@@ -4,11 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production",
-    "build:prod": "ng build --configuration production",
-    "vercel-build": "ng build --configuration production",
+    "build": "npx ng build --configuration production",
+    "build:prod": "npx ng build --configuration production",
+    "vercel-build": "npx ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "postinstall": "ng version || true"
   },
   "private": true,
   "dependencies": {
