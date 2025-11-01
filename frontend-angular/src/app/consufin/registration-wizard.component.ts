@@ -944,7 +944,7 @@ export class RegistrationWizardComponent implements OnInit {
 
   // Step 3 Validations
   isStep3Valid(): boolean {
-    const baseValid = (
+    const baseValid: boolean = !!(
       this.step3.firstName.trim().length > 0 &&
       this.step3.lastName.trim().length > 0 &&
       this.step3.birthDate &&
@@ -985,7 +985,7 @@ export class RegistrationWizardComponent implements OnInit {
   }
 
   isStep4Valid(): boolean {
-    return (
+    return !!(
       this.isValidCURP(this.step4.curp) &&
       this.step4.rfc && this.isValidRFC(this.step4.rfc) &&
       this.step4.proofUploaded &&

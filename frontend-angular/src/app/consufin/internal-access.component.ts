@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 import { BackButtonComponent } from './back-button.component';
 import { AuthService } from '../services/auth.service';
 
@@ -43,7 +44,7 @@ import { AuthService } from '../services/auth.service';
               placeholder="benjamin@consufin.com.mx"
               [class.border-red-300]="corporateEmail && !isCorporateEmail(corporateEmail)" />
             <p *ngIf="corporateEmail && !isCorporateEmail(corporateEmail)" class="text-xs text-red-600 mt-1">
-              Debe ser un correo corporativo de CONSUFIN (@consufin.com.mx)
+              Debe ser un correo corporativo de CONSUFIN (&#64;consufin.com.mx)
             </p>
           </div>
 
@@ -270,13 +271,28 @@ export class InternalAccessComponent {
     
     try {
       // TODO: Implementar endpoint de login corporativo con 2FA
-      const response = await this.authService.login({
+      const tokenResponse = await firstValueFrom(this.authService.login({
         email: this.corporateEmail,
         password: this.corporatePassword
-      });
+      }));
+      
+      if (!tokenResponse) {
+        throw new Error('Error en la autenticación');
+      }
+      
+      // Guardar token
+      localStorage.setItem('access_token', tokenResponse.access_token);
+      
+      // Obtener información del usuario
+      const userInfo = await firstValueFrom(this.authService.getCurrentUser());
+      
+      if (!userInfo) {
+        throw new Error('No se pudo obtener información del usuario');
+      }
       
       // Verificar rol interno (ADVISOR, CONSUFIN_USER, SUPER_USER)
-      if (!['advisor', 'consufin_user', 'super_user'].includes(response.user.role.toLowerCase())) {
+      const userRole = userInfo.role?.toLowerCase() || '';
+      if (!['advisor', 'consufin_user', 'super_user'].includes(userRole)) {
         throw new Error('No tienes acceso corporativo');
       }
       
@@ -285,9 +301,9 @@ export class InternalAccessComponent {
       this.successMessage = 'Inicio de sesión exitoso';
       
       // Redirigir según rol
-      if (response.user.role === 'super_user') {
+      if (userInfo.role === 'SUPER_USER' || userInfo.role === 'super_user') {
         this.router.navigate(['/consufin/admin']);
-      } else if (response.user.role === 'advisor') {
+      } else if (userInfo.role === 'ADVISOR' || userInfo.role === 'advisor') {
         this.router.navigate(['/consufin/advisor']);
       } else {
         this.router.navigate(['/consufin/usuario']);
