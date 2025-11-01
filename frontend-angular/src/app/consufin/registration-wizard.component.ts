@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BackButtonComponent } from './back-button.component';
 import { AuthService, RegisterRequest } from '../services/auth.service';
 
-type RegistrationStep = 1 | 2 | 3 | 4;
+type RegistrationStep = 1 | 2 | 3 | 4 | 5;
 type UserType = 'client' | 'broker';
 type PersonType = 'fisica' | 'moral';
 
@@ -21,7 +21,7 @@ type PersonType = 'fisica' | 'moral';
         <!-- Progress Bar -->
         <div class="mb-8">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-sm font-medium text-gray-700">Paso {{ currentStep }} de 4</span>
+            <span class="text-sm font-medium text-gray-700">Paso {{ currentStep }} de {{ userType === 'broker' ? '5' : '4' }}</span>
             <span class="text-sm text-gray-500">{{ progressPercent }}% Completo</span>
           </div>
           <div class="w-full bg-gray-200 rounded-full h-2">
@@ -301,10 +301,165 @@ type PersonType = 'fisica' | 'moral';
           </div>
         </div>
 
-        <!-- STEP 3: Información Personal -->
+        <!-- STEP 3: Información Personal (o Profesional para Broker) -->
         <div *ngIf="currentStep === 3">
-          <h2 class="text-2xl font-bold text-gray-900 mb-2">👤 Información Personal</h2>
-          <p class="text-gray-600 mb-6">Paso 3 de 4</p>
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">
+            {{ userType === 'broker' ? '🏢 Información Profesional' : '👤 Información Personal' }}
+          </h2>
+          <p class="text-gray-600 mb-6">Paso 3 de {{ userType === 'broker' ? '5' : '4' }}</p>
+
+          <!-- Campos adicionales para BROKER -->
+          <div *ngIf="userType === 'broker'" class="mb-6 space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">🏢 Nombre Comercial *</label>
+              <input 
+                type="text" 
+                [(ngModel)]="step3Broker.businessName" 
+                class="w-full border rounded-lg px-3 py-2"
+                placeholder="Broker Inmobiliario ABC" />
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">📜 RFC Empresa *</label>
+              <input 
+                type="text" 
+                [(ngModel)]="step3Broker.businessRFC" 
+                class="w-full border rounded-lg px-3 py-2 uppercase"
+                placeholder="AAA######AAA"
+                maxlength="13" />
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">📋 Giro Comercial *</label>
+              <select [(ngModel)]="step3Broker.businessType" class="w-full border rounded-lg px-3 py-2">
+                <option value="">Seleccionar...</option>
+                <option value="inmobiliario">Servicios Inmobiliarios</option>
+                <option value="vehiculos">Venta de Vehículos</option>
+                <option value="maquinaria">Maquinaria y Equipo</option>
+                <option value="otro">Otro</option>
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">💼 Años de Experiencia *</label>
+              <input 
+                type="number" 
+                [(ngModel)]="step3Broker.yearsExperience" 
+                class="w-full border rounded-lg px-3 py-2"
+                min="1"
+                placeholder="5" />
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">🎯 Especialización *</label>
+              <select [(ngModel)]="step3Broker.specialization" class="w-full border rounded-lg px-3 py-2">
+                <option value="">Seleccionar...</option>
+                <option value="bienes_inmuebles">Bienes Inmuebles</option>
+                <option value="vehiculos">Vehículos</option>
+                <option value="maquinaria">Maquinaria</option>
+                <option value="servicios">Servicios Profesionales</option>
+                <option value="general">General</option>
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">💰 Volumen Anual Promedio (MXN) *</label>
+              <input 
+                type="number" 
+                [(ngModel)]="step3Broker.annualVolume" 
+                class="w-full border rounded-lg px-3 py-2"
+                min="0"
+                placeholder="2000000" />
+            </div>
+            
+            <div class="pt-4 border-t">
+              <h3 class="text-sm font-semibold text-gray-900 mb-3">📜 Licencias y Certificaciones</h3>
+              <div *ngFor="let license of step3Broker.licenses; let i = index" class="mb-4 p-4 border rounded-lg">
+                <div class="grid grid-cols-2 gap-3 mb-2">
+                  <div>
+                    <label class="block text-xs text-gray-600 mb-1">Tipo</label>
+                    <select [(ngModel)]="license.type" class="w-full border rounded px-2 py-1 text-sm">
+                      <option value="inmobiliario">Licencia Broker Inmobiliario</option>
+                      <option value="vehiculos">Licencia Venta de Vehículos</option>
+                      <option value="otro">Otra</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs text-gray-600 mb-1">Número</label>
+                    <input type="text" [(ngModel)]="license.number" class="w-full border rounded px-2 py-1 text-sm" />
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-2">
+                  <div>
+                    <label class="block text-xs text-gray-600 mb-1">Vigencia</label>
+                    <input type="date" [(ngModel)]="license.expiry" class="w-full border rounded px-2 py-1 text-sm" />
+                  </div>
+                  <div>
+                    <label class="block text-xs text-gray-600 mb-1">Emisor</label>
+                    <input type="text" [(ngModel)]="license.issuer" class="w-full border rounded px-2 py-1 text-sm" placeholder="AMPI" />
+                  </div>
+                </div>
+                <button 
+                  (click)="removeLicense(i)"
+                  class="mt-2 text-xs text-red-600 hover:text-red-800">
+                  🗑️ Eliminar
+                </button>
+              </div>
+              <button 
+                (click)="addLicense()"
+                class="w-full px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg hover:border-indigo-500 text-sm">
+                + Agregar Licencia/Certificación
+              </button>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">🏦 Póliza de Responsabilidad *</label>
+              <button 
+                (click)="uploadDocument('insurance_policy')"
+                class="w-full px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg hover:border-indigo-500 text-center">
+                📷 Subir Póliza
+              </button>
+              <p class="text-xs text-gray-600 mt-1">
+                Cobertura mínima: $5,000,000 MXN
+              </p>
+            </div>
+            
+            <div class="pt-4 border-t">
+              <h3 class="text-sm font-semibold text-gray-900 mb-3">🔍 Referencias Comerciales (mínimo 2)</h3>
+              <div *ngFor="let ref of step3Broker.references; let i = index" class="mb-4 p-4 border rounded-lg">
+                <div class="grid grid-cols-2 gap-3 mb-2">
+                  <div>
+                    <label class="block text-xs text-gray-600 mb-1">Empresa</label>
+                    <input type="text" [(ngModel)]="ref.company" class="w-full border rounded px-2 py-1 text-sm" />
+                  </div>
+                  <div>
+                    <label class="block text-xs text-gray-600 mb-1">Contacto</label>
+                    <input type="text" [(ngModel)]="ref.contact" class="w-full border rounded px-2 py-1 text-sm" />
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-2">
+                  <div>
+                    <label class="block text-xs text-gray-600 mb-1">Teléfono</label>
+                    <input type="tel" [(ngModel)]="ref.phone" class="w-full border rounded px-2 py-1 text-sm" />
+                  </div>
+                  <div>
+                    <label class="block text-xs text-gray-600 mb-1">Email</label>
+                    <input type="email" [(ngModel)]="ref.email" class="w-full border rounded px-2 py-1 text-sm" />
+                  </div>
+                </div>
+                <button 
+                  (click)="removeReference(i)"
+                  class="mt-2 text-xs text-red-600 hover:text-red-800">
+                  🗑️ Eliminar
+                </button>
+              </div>
+              <button 
+                (click)="addReference()"
+                class="w-full px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg hover:border-indigo-500 text-sm">
+                + Agregar Referencia
+              </button>
+            </div>
+          </div>
 
           <div class="space-y-4">
             <!-- Personal Data -->
@@ -664,6 +819,19 @@ export class RegistrationWizardComponent implements OnInit {
     gpsLocation: null as { lat: number; lng: number } | null
   };
 
+  // Step 3 Broker Data (información profesional adicional)
+  step3Broker = {
+    businessName: '',
+    businessRFC: '',
+    businessType: '',
+    yearsExperience: 0,
+    specialization: '',
+    annualVolume: 0,
+    licenses: [] as Array<{type: string; number: string; expiry: string; issuer: string}>,
+    insurancePolicyUploaded: false,
+    references: [] as Array<{company: string; contact: string; phone: string; email: string}>
+  };
+
   // Step 4 Data
   step4 = {
     curp: '',
@@ -698,7 +866,8 @@ export class RegistrationWizardComponent implements OnInit {
   }
 
   get progressPercent(): number {
-    return (this.currentStep / 4) * 100;
+    const totalSteps = this.userType === 'broker' ? 5 : 4;
+    return (this.currentStep / totalSteps) * 100;
   }
 
   // Step 1 Validations
@@ -775,7 +944,7 @@ export class RegistrationWizardComponent implements OnInit {
 
   // Step 3 Validations
   isStep3Valid(): boolean {
-    return (
+    const baseValid = (
       this.step3.firstName.trim().length > 0 &&
       this.step3.lastName.trim().length > 0 &&
       this.step3.birthDate &&
@@ -786,6 +955,22 @@ export class RegistrationWizardComponent implements OnInit {
       this.step3.neighborhood.trim().length > 0 &&
       this.step3.municipality.trim().length > 0
     );
+    
+    // Para broker, validar campos adicionales
+    if (this.userType === 'broker') {
+      return baseValid &&
+        this.step3Broker.businessName.trim().length > 0 &&
+        this.step3Broker.businessRFC.trim().length > 0 &&
+        this.step3Broker.businessType.length > 0 &&
+        this.step3Broker.yearsExperience > 0 &&
+        this.step3Broker.specialization.length > 0 &&
+        this.step3Broker.annualVolume > 0 &&
+        this.step3Broker.licenses.length > 0 &&
+        this.step3Broker.references.length >= 2 &&
+        this.step3Broker.insurancePolicyUploaded;
+    }
+    
+    return baseValid;
   }
 
   // Step 4 Validations
@@ -810,7 +995,8 @@ export class RegistrationWizardComponent implements OnInit {
 
   // Navigation
   nextStep() {
-    if (this.currentStep < 4) {
+    const maxStep = this.userType === 'broker' ? 5 : 4;
+    if (this.currentStep < maxStep) {
       this.currentStep = (this.currentStep + 1) as RegistrationStep;
     }
   }
@@ -819,6 +1005,33 @@ export class RegistrationWizardComponent implements OnInit {
     if (this.currentStep > 1) {
       this.currentStep = (this.currentStep - 1) as RegistrationStep;
     }
+  }
+  
+  // Broker helper methods
+  addLicense() {
+    this.step3Broker.licenses.push({
+      type: '',
+      number: '',
+      expiry: '',
+      issuer: ''
+    });
+  }
+  
+  removeLicense(index: number) {
+    this.step3Broker.licenses.splice(index, 1);
+  }
+  
+  addReference() {
+    this.step3Broker.references.push({
+      company: '',
+      contact: '',
+      phone: '',
+      email: ''
+    });
+  }
+  
+  removeReference(index: number) {
+    this.step3Broker.references.splice(index, 1);
   }
 
   goBack() {

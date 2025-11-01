@@ -41,6 +41,16 @@ class UserCreate(UserBase):
     gps_latitude: Optional[str] = None
     gps_longitude: Optional[str] = None
     
+    # Broker-specific fields
+    broker_business_name: Optional[str] = None
+    broker_business_rfc: Optional[str] = None
+    broker_business_type: Optional[str] = None
+    broker_years_experience: Optional[int] = None
+    broker_specialization: Optional[str] = None
+    broker_annual_volume: Optional[int] = None
+    broker_licenses: Optional[List[Dict[str, Any]]] = None
+    broker_references: Optional[List[Dict[str, str]]] = None
+    
     @validator('password')
     def validate_password(cls, v):
         if len(v) < 8:

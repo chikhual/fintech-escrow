@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 import os
 
 from shared.database import get_db, init_db
-from shared.models import User, UserStatus
+from shared.models import User, UserStatus, Document
 from shared.schemas import (
     UserCreate, UserResponse, UserLogin, Token, UserUpdate,
     SuccessResponse, ErrorResponse
@@ -18,6 +18,10 @@ from shared.auth import (
     get_password_hash, verify_password, create_access_token,
     create_refresh_token, get_current_user, require_verification
 )
+from shared.notifications import (
+    send_verification_email, send_welcome_notification
+)
+from .verification import router as verification_router
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -36,7 +40,10 @@ app.add_middleware(
 )
 
 # Initialize database
-init_db()
+init_db()  # Ya descomentado - inicializar tablas automáticamente
+
+# Include routers
+app.include_router(verification_router)
 
 
 @app.post("/register", response_model=UserResponse)
@@ -95,6 +102,16 @@ async def register_user(user_data: UserCreate, db: Session = Depends(get_db)):
         gps_latitude=user_data.gps_latitude,
         gps_longitude=user_data.gps_longitude,
         
+        # Broker-specific fields (if role is BROKER)
+        broker_business_name=user_data.broker_business_name if user_data.role == UserRole.BROKER else None,
+        broker_business_rfc=user_data.broker_business_rfc if user_data.role == UserRole.BROKER else None,
+        broker_business_type=user_data.broker_business_type if user_data.role == UserRole.BROKER else None,
+        broker_years_experience=user_data.broker_years_experience if user_data.role == UserRole.BROKER else None,
+        broker_specialization=user_data.broker_specialization if user_data.role == UserRole.BROKER else None,
+        broker_annual_volume=user_data.broker_annual_volume if user_data.role == UserRole.BROKER else None,
+        broker_licenses=user_data.broker_licenses if user_data.role == UserRole.BROKER else None,
+        broker_references=user_data.broker_references if user_data.role == UserRole.BROKER else None,
+        
         # Verification tokens
         email_verification_token=email_token,
         email_verification_token_expires=email_token_expires
@@ -104,8 +121,10 @@ async def register_user(user_data: UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_user)
     
-    # TODO: Send verification email with token
-    # TODO: Send welcome notification
+    # Send verification email with token
+    await send_verification_email(db, db_user, email_token)
+    # Send welcome notification
+    await send_welcome_notification(db, db_user)
     
     return db_user
 
@@ -184,17 +203,41 @@ async def update_user_profile(
     return current_user
 
 
-@app.post("/verify-email")
+@app.post("/verify-email", response_model=SuccessResponse)
 async def verify_email(
     token: str,
     db: Session = Depends(get_db)
 ):
     """Verify user email with token"""
-    # TODO: Implement email verification logic
-    pass
+    user = db.query(User).filter(
+        User.email_verification_token == token,
+        User.email_verification_token_expires > datetime.utcnow()
+    ).first()
+    
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid or expired verification token"
+        )
+    
+    # Mark email as verified
+    user.is_email_verified = True
+    user.email_verification_token = None
+    user.email_verification_token_expires = None
+    
+    # Update status based on current state
+    if user.status == UserStatus.PENDING_EMAIL:
+        user.status = UserStatus.EMAIL_VERIFIED
+        # Move to phone verification if phone is provided
+        if user.phone:
+            user.status = UserStatus.PENDING_PHONE
+    
+    db.commit()
+    
+    return {"success": True, "message": "Email verified successfully"}
 
 
-@app.post("/resend-verification")
+@app.post("/resend-verification", response_model=SuccessResponse)
 async def resend_verification(
     email: str,
     db: Session = Depends(get_db)
@@ -207,11 +250,17 @@ async def resend_verification(
             detail="User not found"
         )
     
-    # TODO: Send verification email
-    return SuccessResponse(
-        success=True,
-        message="Verification email sent"
-    )
+    # Generate new token if expired or missing
+    if not user.email_verification_token or user.email_verification_token_expires < datetime.utcnow():
+        import secrets
+        user.email_verification_token = secrets.token_urlsafe(32)
+        user.email_verification_token_expires = datetime.utcnow() + timedelta(hours=24)
+        db.commit()
+    
+    # Send verification email
+    await send_verification_email(db, user, user.email_verification_token)
+    
+    return {"success": True, "message": "Verification email sent"}
 
 
 @app.post("/forgot-password")

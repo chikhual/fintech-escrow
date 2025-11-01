@@ -102,6 +102,17 @@ class User(Base):
     credit_score = Column(Integer)
     employment_status = Column(String(50))
     
+    # Broker-specific information (JSON fields for flexibility)
+    broker_business_name = Column(String(255))  # Nombre comercial
+    broker_business_rfc = Column(String(13))  # RFC de la empresa
+    broker_business_type = Column(String(100))  # Giro comercial
+    broker_years_experience = Column(Integer)
+    broker_specialization = Column(String(100))  # Especialización
+    broker_annual_volume = Column(Integer)  # Volumen anual promedio
+    broker_licenses = Column(JSON)  # Array de licencias/certificaciones
+    broker_references = Column(JSON)  # Referencias comerciales
+    broker_insurance_policy_path = Column(String(500))  # Path a póliza de responsabilidad
+    
     # Biometric data
     biometric_data = Column(JSON)
     selfie_verification_image = Column(String(500))  # Path to selfie
