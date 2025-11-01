@@ -9,18 +9,41 @@ from .database import Base
 
 
 class UserRole(str, PyEnum):
-    ADMIN = "admin"
-    ADVISOR = "advisor"
-    SELLER = "seller"
-    BUYER = "buyer"
-    BROKER = "broker"
+    # Usuarios públicos (registro abierto)
+    CLIENT = "client"  # Puede ser Comprador, Vendedor o ambos
+    BROKER = "broker"  # Broker profesional
+    
+    # Usuarios internos (solo por invitación)
+    ADVISOR = "advisor"  # Asesor CONSUFIN
+    CONSUFIN_USER = "consufin_user"  # Empleado administrativo
+    SUPER_USER = "super_user"  # Administrador máximo
+    
+    # Mantener compatibilidad con roles antiguos
+    ADMIN = "admin"  # Deprecated, usar SUPER_USER
+    SELLER = "seller"  # Deprecated, usar CLIENT
+    BUYER = "buyer"  # Deprecated, usar CLIENT
 
 
 class UserStatus(str, PyEnum):
+    # Estados de verificación progresivos
+    PENDING_EMAIL = "pending_email"
+    EMAIL_VERIFIED = "email_verified"
+    PENDING_PHONE = "pending_phone"
+    PHONE_VERIFIED = "phone_verified"
+    PENDING_DOCUMENTS = "pending_documents"
+    DOCUMENTS_SUBMITTED = "documents_submitted"
+    UNDER_REVIEW = "under_review"
+    PARTIALLY_VERIFIED = "partially_verified"  # Algunos docs aprobados
+    FULLY_VERIFIED = "fully_verified"
+    
+    # Estados finales
     ACTIVE = "active"
     INACTIVE = "inactive"
-    PENDING_VERIFICATION = "pending_verification"
+    VERIFICATION_FAILED = "verification_failed"
     SUSPENDED = "suspended"
+    
+    # Mantener compatibilidad
+    PENDING_VERIFICATION = "pending_verification"  # Deprecated, usar PENDING_EMAIL
 
 
 class User(Base):
@@ -34,8 +57,27 @@ class User(Base):
     hashed_password = Column(String(255), nullable=False)
     
     # Profile information
-    role = Column(Enum(UserRole), default=UserRole.BUYER, nullable=False)
-    status = Column(Enum(UserStatus), default=UserStatus.PENDING_VERIFICATION, nullable=False)
+    role = Column(Enum(UserRole), default=UserRole.CLIENT, nullable=False)
+    status = Column(Enum(UserStatus), default=UserStatus.PENDING_EMAIL, nullable=False)
+    
+    # Registration type and intent
+    person_type = Column(String(20))  # "fisica" or "moral"
+    usage_intent = Column(JSON)  # {"comprar": true, "vender": true, "ambos": true}
+    birth_date = Column(DateTime(timezone=True))
+    
+    # Verification tokens and codes
+    email_verification_token = Column(String(255), index=True)
+    email_verification_token_expires = Column(DateTime(timezone=True))
+    phone_verification_code = Column(String(10))
+    phone_verification_code_expires = Column(DateTime(timezone=True))
+    two_factor_secret = Column(String(255))  # For TOTP apps
+    
+    # GPS Location
+    gps_latitude = Column(String(50))
+    gps_longitude = Column(String(50))
+    
+    # TRUORA validation data
+    truora_validation_data = Column(JSON)  # Store TRUORA API responses
     
     # Address
     address_street = Column(String(255))
@@ -60,8 +102,10 @@ class User(Base):
     credit_score = Column(Integer)
     employment_status = Column(String(50))
     
-    # Biometric data (for future implementation)
+    # Biometric data
     biometric_data = Column(JSON)
+    selfie_verification_image = Column(String(500))  # Path to selfie
+    selfie_verified_at = Column(DateTime(timezone=True))
     
     # Notification preferences
     notification_preferences = Column(JSON, default={
@@ -102,8 +146,8 @@ class Document(Base):
     verified_by = Column(Integer, ForeignKey("users.id"))
     verified_at = Column(DateTime(timezone=True))
     
-    # Metadata
-    metadata = Column(JSON)
+    # Metadata (renamed to avoid SQLAlchemy reserved word conflict)
+    document_metadata = Column("metadata", JSON)
     
     # Timestamps
     created_at = Column(DateTime(timezone=True), server_default=func.now())
@@ -130,8 +174,8 @@ class Notification(Base):
     is_sent = Column(Boolean, default=False)
     sent_at = Column(DateTime(timezone=True))
     
-    # Metadata
-    metadata = Column(JSON)
+    # Metadata (renamed to avoid SQLAlchemy reserved word conflict)
+    notification_metadata = Column("metadata", JSON)
     
     # Timestamps
     created_at = Column(DateTime(timezone=True), server_default=func.now())

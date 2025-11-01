@@ -25,11 +25,8 @@ import { AuthService, RegisterRequest, LoginRequest } from '../services/auth.ser
             Iniciar Sesión
           </button>
           <button 
-            (click)="activeTab = 'register'"
-            [ngClass]="activeTab === 'register' 
-              ? 'border-b-2 border-indigo-600 text-indigo-600 font-semibold' 
-              : 'text-gray-600 hover:text-gray-900'"
-            class="flex-1 py-3 text-center transition">
+            (click)="goToRegistrationSelection()"
+            class="flex-1 py-3 text-center transition text-gray-600 hover:text-gray-900">
             Registrarse
           </button>
         </div>
@@ -85,8 +82,8 @@ import { AuthService, RegisterRequest, LoginRequest } from '../services/auth.ser
           </div>
         </div>
 
-        <!-- REGISTER TAB -->
-        <div *ngIf="activeTab === 'register'">
+        <!-- LOGIN ONLY - Registration redirects to selection page -->
+        <div *ngIf="activeTab === 'login' && false" style="display: none;">
           <h2 class="text-2xl font-bold text-gray-900 mb-2">Crear cuenta en CONSUFIN</h2>
           <p class="text-gray-600 mb-6">Selecciona tu tipo de persona y registra tus datos.</p>
 
@@ -315,5 +312,9 @@ export class ConsufinAuthComponent {
   forgotPassword(): void {
     // TODO: Implement forgot password flow
     this.errorMessage = 'Funcionalidad de recuperación de contraseña próximamente disponible.';
+  }
+
+  goToRegistrationSelection(): void {
+    this.router.navigate(['/consufin/registro/seleccion']);
   }
 }

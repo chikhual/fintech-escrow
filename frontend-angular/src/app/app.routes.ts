@@ -19,6 +19,8 @@ import { ConsufinRejectComponent } from './consufin/reject.component';
 import { ConsufinDisputeComponent } from './consufin/dispute.component';
 import { RoleCenterComponent } from './consufin/role-center.component';
 import { UserPortalComponent } from './consufin/user-portal.component';
+import { RegistrationSelectionComponent } from './consufin/registration-selection.component';
+import { RegistrationWizardComponent } from './consufin/registration-wizard.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'consufin' },
@@ -26,7 +28,9 @@ export const routes: Routes = [
   { path: 'tasks', component: TaskManagerComponent },
   // CONSUFIN
   { path: 'consufin', component: ConsufinHomeComponent },
-  { path: 'consufin/registro', component: ConsufinAuthComponent },
+  { path: 'consufin/registro', component: ConsufinAuthComponent }, // Mantener para login
+  { path: 'consufin/registro/seleccion', component: RegistrationSelectionComponent },
+  { path: 'consufin/registro/wizard', component: RegistrationWizardComponent },
   { path: 'consufin/transaccion/nueva', component: ConsufinWizardComponent },
   { path: 'consufin/transaccion/preview', component: ConsufinTransactionDetailComponent },
   { path: 'consufin/transaccion/acciones', component: ConsufinTransactionActionsComponent },

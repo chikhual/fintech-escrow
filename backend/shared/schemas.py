@@ -1,6 +1,7 @@
 """
 Pydantic schemas for request/response validation
 """
+import re
 from pydantic import BaseModel, EmailStr, validator
 from typing import Optional, List, Dict, Any
 from datetime import datetime
@@ -13,7 +14,7 @@ class UserBase(BaseModel):
     first_name: str
     last_name: str
     phone: Optional[str] = None
-    role: UserRole = UserRole.BUYER
+    role: UserRole = UserRole.CLIENT
 
 
 class UserCreate(UserBase):
@@ -21,6 +22,24 @@ class UserCreate(UserBase):
     curp: Optional[str] = None
     rfc: Optional[str] = None
     ine_number: Optional[str] = None
+    
+    # Registration fields
+    person_type: Optional[str] = None  # "fisica" or "moral"
+    usage_intent: Optional[Dict[str, bool]] = None  # {"comprar": true, "vender": true, "ambos": true}
+    birth_date: Optional[datetime] = None
+    
+    # Address fields
+    address_street: Optional[str] = None
+    address_city: Optional[str] = None
+    address_state: Optional[str] = None
+    address_zip_code: Optional[str] = None
+    address_country: Optional[str] = "México"
+    address_neighborhood: Optional[str] = None
+    address_municipality: Optional[str] = None
+    
+    # GPS
+    gps_latitude: Optional[str] = None
+    gps_longitude: Optional[str] = None
     
     @validator('password')
     def validate_password(cls, v):
@@ -32,7 +51,23 @@ class UserCreate(UserBase):
             raise ValueError('Password must contain at least one lowercase letter')
         if not any(c.isdigit() for c in v):
             raise ValueError('Password must contain at least one digit')
+        # Special character validation
+        special_chars = "!@#$%^&*(),.?\":{}|<>"
+        if not any(c in special_chars for c in v):
+            raise ValueError('Password must contain at least one special character')
         return v
+    
+    @validator('curp')
+    def validate_curp(cls, v):
+        if v and not re.match(r'^[A-Z]{4}\d{6}[HM][A-Z]{5}[0-9A-Z]\d$', v.upper()):
+            raise ValueError('CURP format is invalid')
+        return v.upper() if v else v
+    
+    @validator('rfc')
+    def validate_rfc(cls, v):
+        if v and not re.match(r'^[A-ZÑ&]{3,4}\d{6}[A-Z0-9]{3}$', v.upper()):
+            raise ValueError('RFC format is invalid')
+        return v.upper() if v else v
 
 
 class UserUpdate(BaseModel):

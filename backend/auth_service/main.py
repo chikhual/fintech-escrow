@@ -61,24 +61,50 @@ async def register_user(user_data: UserCreate, db: Session = Depends(get_db)):
     
     # Create new user
     hashed_password = get_password_hash(user_data.password)
+    
+    # Generate email verification token
+    import secrets
+    email_token = secrets.token_urlsafe(32)
+    email_token_expires = datetime.utcnow() + timedelta(hours=24)
+    
     db_user = User(
         email=user_data.email,
         first_name=user_data.first_name,
         last_name=user_data.last_name,
         phone=user_data.phone,
-        role=user_data.role,
+        role=user_data.role or UserRole.CLIENT,
         hashed_password=hashed_password,
         curp=user_data.curp,
         rfc=user_data.rfc,
         ine_number=user_data.ine_number,
-        status=UserStatus.PENDING_VERIFICATION
+        status=UserStatus.PENDING_EMAIL,
+        
+        # Registration fields
+        person_type=user_data.person_type,
+        usage_intent=user_data.usage_intent or {},
+        birth_date=user_data.birth_date,
+        
+        # Address
+        address_street=user_data.address_street,
+        address_city=user_data.address_city,
+        address_state=user_data.address_state,
+        address_zip_code=user_data.address_zip_code,
+        address_country=user_data.address_country,
+        
+        # GPS
+        gps_latitude=user_data.gps_latitude,
+        gps_longitude=user_data.gps_longitude,
+        
+        # Verification tokens
+        email_verification_token=email_token,
+        email_verification_token_expires=email_token_expires
     )
     
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     
-    # TODO: Send verification email
+    # TODO: Send verification email with token
     # TODO: Send welcome notification
     
     return db_user
