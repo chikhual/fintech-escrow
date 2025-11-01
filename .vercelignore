@@ -1,0 +1,20 @@
+# Ignorar archivos que no deben desplegarse en Vercel
+node_modules
+.git
+.env
+.env.local
+*.log
+coverage
+.angular
+dist
+.vscode
+.idea
+*.md
+!README.md
+backend/
+tests/
+client/
+__pycache__/
+*.pyc
+.DS_Store
+
