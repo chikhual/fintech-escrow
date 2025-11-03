@@ -47,24 +47,53 @@ import { FormsModule } from '@angular/forms';
                 <option>50% - 50%</option>
                 <option>Personalizar</option>
               </select>
-            <div *ngIf="feePayer==='Personalizar'" class="mt-3 text-sm bg-gray-50 border rounded p-4">
-              <div class="flex flex-col md:flex-row md:items-end md:gap-6">
-                <div class="flex-1 mb-3 md:mb-0">
-                  <label class="block mb-1 text-gray-700">Otra parte</label>
-                  <select class="w-full border rounded px-3 py-2" [(ngModel)]="customOtherRole" [ngModelOptions]="{standalone: true}">
-                    <option *ngFor="let opt of counterpartyOptions" [value]="opt">{{ opt }}</option>
-                  </select>
-                </div>
-                <div class="w-full md:w-64">
-                  <label class="block mb-1 text-gray-700">% que paga {{ role }}</label>
-                  <div class="flex items-center gap-2">
-                    <input type="number" min="0" max="100" class="flex-1 border rounded px-3 py-2" [(ngModel)]="customPercentSelf" [ngModelOptions]="{standalone: true}" (input)="recalcPercent()" />
-                    <span class="text-gray-600 whitespace-nowrap">/ 100%</span>
-                  </div>
+            </div>
+          </div>
+
+          <!-- Sección de Personalización de Comisión - Ancho Completo -->
+          <div *ngIf="feePayer==='Personalizar'" class="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-6 w-full">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Personalización de Comisión</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Otra parte</label>
+                <select class="w-full border rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500" [(ngModel)]="customOtherRole" [ngModelOptions]="{standalone: true}">
+                  <option value="">Selecciona una opción</option>
+                  <option *ngFor="let opt of counterpartyOptions" [value]="opt">{{ opt }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">% que paga {{ role || 'tú' }}</label>
+                <div class="flex items-center gap-3">
+                  <input 
+                    type="number" 
+                    min="0" 
+                    max="100" 
+                    class="flex-1 border rounded-lg px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                    [(ngModel)]="customPercentSelf" 
+                    [ngModelOptions]="{standalone: true}" 
+                    (input)="recalcPercent()" 
+                    placeholder="0" />
+                  <span class="text-gray-600 font-medium whitespace-nowrap">/ 100%</span>
                 </div>
               </div>
-              <p class="mt-2 text-gray-600">Resultado: <strong>{{ customPercentSelf || 0 }}%</strong> lo paga {{ role }} y <strong>{{ customPercentOther }}%</strong> lo paga {{ customOtherRole || 'la otra parte' }}.</p>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">% que paga {{ customOtherRole || 'la otra parte' }}</label>
+                <div class="flex items-center">
+                  <input 
+                    type="number" 
+                    readonly 
+                    class="flex-1 border rounded-lg px-4 py-2 bg-gray-100 text-gray-700 font-semibold" 
+                    [value]="customPercentOther" />
+                  <span class="text-gray-600 font-medium whitespace-nowrap ml-3">/ 100%</span>
+                </div>
+              </div>
             </div>
+            <div class="mt-6 p-4 bg-white rounded-lg border border-blue-300">
+              <p class="text-sm text-gray-700">
+                <span class="font-semibold">Resultado:</span> 
+                <strong class="text-blue-700">{{ customPercentSelf || 0 }}%</strong> lo paga <strong>{{ role || 'tu rol' }}</strong> y 
+                <strong class="text-blue-700">{{ customPercentOther }}%</strong> lo paga <strong>{{ customOtherRole || 'la otra parte' }}</strong>.
+              </p>
             </div>
           </div>
 
