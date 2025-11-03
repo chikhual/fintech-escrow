@@ -80,10 +80,18 @@ export class AuthService {
         if (response.refresh_token) {
           this.setRefreshToken(response.refresh_token);
         }
-        // Get user info after login
-        this.getCurrentUser().subscribe(user => {
-          this.setCurrentUser(user);
-          this.router.navigate(['/consufin']);
+        // Get user info after login - handle errors gracefully
+        this.getCurrentUser().subscribe({
+          next: (user) => {
+            this.setCurrentUser(user);
+            this.router.navigate(['/consufin']);
+          },
+          error: (err) => {
+            console.error('Error getting user info after login:', err);
+            // Still navigate even if getCurrentUser fails
+            // User info can be fetched later
+            this.router.navigate(['/consufin']);
+          }
         });
       })
     );

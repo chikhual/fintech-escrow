@@ -101,10 +101,22 @@ def get_current_user(
             detail="User not found"
         )
     
-    if user.status != "active":
+    # Check if user can access - allow various verified states
+    from shared.models import UserStatus
+    user_status = user.status.value if hasattr(user.status, 'value') else str(user.status)
+    # Allow access for active, fully_verified, email_verified, and verified states
+    allowed_statuses = [
+        UserStatus.ACTIVE.value, 
+        UserStatus.FULLY_VERIFIED.value,
+        UserStatus.EMAIL_VERIFIED.value,
+        "active",
+        "fully_verified",
+        "email_verified"
+    ]
+    if user_status not in allowed_statuses:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User account is not active"
+            detail=f"User account is not active (status: {user_status})"
         )
     
     return user

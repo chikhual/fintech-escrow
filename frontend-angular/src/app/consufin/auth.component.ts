@@ -271,7 +271,9 @@ export class ConsufinAuthComponent {
       },
       error: (err) => {
         this.loading = false;
-        this.errorMessage = err.error?.detail || err.error?.message || 'Error al iniciar sesión. Verifica tus credenciales.';
+        console.error('Login error:', err);
+        const errorDetail = err.error?.detail || err.error?.message || err.message || 'Error desconocido';
+        this.errorMessage = `Error al iniciar sesión: ${errorDetail}. Verifica tus credenciales y que el backend esté corriendo.`;
       }
     });
   }

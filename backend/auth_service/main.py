@@ -140,11 +140,12 @@ async def login_user(login_data: UserLogin, db: Session = Depends(get_db)):
             detail="Incorrect email or password"
         )
     
-    # Check if user is active
-    if user.status != UserStatus.ACTIVE:
+    # Check if user is active - allow login for users in verification process
+    user_status = user.status.value if hasattr(user.status, 'value') else str(user.status)
+    if user_status not in [UserStatus.ACTIVE.value, UserStatus.EMAIL_VERIFIED.value, UserStatus.FULLY_VERIFIED.value]:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User account is not active"
+            detail=f"User account is not active. Current status: {user_status}. Please complete email verification."
         )
     
     # TODO: Implement 2FA verification
