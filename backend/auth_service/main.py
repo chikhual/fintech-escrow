@@ -117,12 +117,20 @@ async def register_user(user_data: UserCreate, db: Session = Depends(get_db)):
         email_verification_token_expires=email_token_expires
     )
     
+    # TODO: PARA PRUEBAS - Suspender validación de email
+    # Automáticamente marcar email como verificado
+    db_user.is_email_verified = True
+    db_user.email_verification_token = None
+    db_user.email_verification_token_expires = None
+    db_user.status = UserStatus.EMAIL_VERIFIED
+    
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     
+    # TODO: PARA PRUEBAS - Comentar envío de email de verificación
     # Send verification email with token
-    await send_verification_email(db, db_user, email_token)
+    # await send_verification_email(db, db_user, email_token)
     # Send welcome notification
     await send_welcome_notification(db, db_user)
     
@@ -140,12 +148,16 @@ async def login_user(login_data: UserLogin, db: Session = Depends(get_db)):
             detail="Incorrect email or password"
         )
     
+    # TODO: PARA PRUEBAS - Suspender validación de email
+    # Permitir login incluso con PENDING_EMAIL status
     # Check if user is active - allow login for users in verification process
     user_status = user.status.value if hasattr(user.status, 'value') else str(user.status)
-    if user_status not in [UserStatus.ACTIVE.value, UserStatus.EMAIL_VERIFIED.value, UserStatus.FULLY_VERIFIED.value]:
+    # Permitir todos los estados excepto SUSPENDED, INACTIVE, VERIFICATION_FAILED
+    blocked_statuses = [UserStatus.SUSPENDED.value, UserStatus.INACTIVE.value, UserStatus.VERIFICATION_FAILED.value]
+    if user_status in blocked_statuses:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=f"User account is not active. Current status: {user_status}. Please complete email verification."
+            detail=f"User account is blocked. Current status: {user_status}."
         )
     
     # TODO: Implement 2FA verification
