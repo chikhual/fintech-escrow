@@ -25,6 +25,7 @@ import { InternalAccessComponent } from './consufin/internal-access.component';
 import { VerificationDashboardComponent } from './consufin/verification-dashboard.component';
 import { QuickAccessComponent } from './consufin/quick-access.component';
 import { DirectAccessComponent } from './consufin/direct-access.component';
+import { BrokerPortalComponent } from './consufin/broker-portal.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'consufin' },
@@ -55,5 +56,6 @@ export const routes: Routes = [
   { path: 'consufin/comprador', redirectTo: 'consufin/usuario', pathMatch: 'full' }, // Redirect old route
   { path: 'consufin/acceso-rapido', component: QuickAccessComponent }, // Acceso directo para desarrollo
   { path: 'portal', component: DirectAccessComponent }, // Acceso externo directo - URL independiente
+  { path: 'broker-portal', component: BrokerPortalComponent }, // Portal Broker - Acceso directo independiente
   { path: '**', redirectTo: 'consufin' }
 ];
