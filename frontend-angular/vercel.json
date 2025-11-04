@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist/frontend-angular/browser",
-  "installCommand": "npm ci --include=dev",
+  "installCommand": "NODE_ENV=development npm ci",
   "framework": null,
   "rewrites": [
     {
