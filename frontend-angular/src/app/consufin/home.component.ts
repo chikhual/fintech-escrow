@@ -495,23 +495,22 @@ import { RouterModule } from '@angular/router';
               <div class="md:grid md:grid-cols-2 md:gap-8">
                 <!-- Soluciones -->
                 <div>
-                  <h3 class="text-sm font-semibold text-gray-900">Soluciones</h3>
+                  <h3 class="text-sm font-semibold text-gray-900">soluciones</h3>
                   <ul role="list" class="mt-6 space-y-4">
-                    <li><a routerLink="/consufin/transaccion/nueva" class="text-sm text-gray-600 hover:text-indigo-600">Nueva transacción</a></li>
-                    <li><a routerLink="/consufin/calculadora" class="text-sm text-gray-600 hover:text-indigo-600">Calculadora de costos</a></li>
-                    <li><a routerLink="/consufin/usuario" class="text-sm text-gray-600 hover:text-indigo-600">Portal de Usuario</a></li>
-                    <li><a routerLink="/consufin/roles" class="text-sm text-gray-600 hover:text-indigo-600">Centro de Roles</a></li>
-                    <li><a routerLink="/consufin/integraciones" class="text-sm text-gray-600 hover:text-indigo-600">Integraciones</a></li>
+                    <li><a href="https://fintech-escrow-5j0ivhu5q-bernardocervantes-9546s-projects.vercel.app/consufin#:~:text=CONSUFIN-,PRESTAMOS,-CALCULADORA" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 hover:text-indigo-600">PRESTAMOS</a></li>
+                    <li><a href="https://fintech-escrow-5j0ivhu5q-bernardocervantes-9546s-projects.vercel.app/consufin#:~:text=PRESTAMOS-,CALCULADORA,-MARKETPLACE" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 hover:text-indigo-600">CALCULADORA</a></li>
+                    <li><a href="https://fintech-escrow-5j0ivhu5q-bernardocervantes-9546s-projects.vercel.app/consufin#:~:text=CALCULADORA-,MARKETPLACE,-ESCROW" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 hover:text-indigo-600">MARKETPLACE</a></li>
+                    <li><a href="https://fintech-escrow-5j0ivhu5q-bernardocervantes-9546s-projects.vercel.app/consufin#:~:text=MARKETPLACE-,ESCROW,-AYUDA" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 hover:text-indigo-600">ESCROW</a></li>
                   </ul>
                 </div>
 
                 <!-- Soporte -->
                 <div class="mt-10 md:mt-0">
-                  <h3 class="text-sm font-semibold text-gray-900">Soporte</h3>
+                  <h3 class="text-sm font-semibold text-gray-900">soporte</h3>
                   <ul role="list" class="mt-6 space-y-4">
-                    <li><a routerLink="/consufin/contacto" class="text-sm text-gray-600 hover:text-indigo-600">Contacto</a></li>
-                    <li><a routerLink="/consufin/ayuda" class="text-sm text-gray-600 hover:text-indigo-600">Ayuda</a></li>
-                    <li><a routerLink="/consufin/faq" class="text-sm text-gray-600 hover:text-indigo-600">Preguntas frecuentes</a></li>
+                    <li><a routerLink="/consufin/faq" class="text-sm text-gray-600 hover:text-indigo-600">PREGUNTAS FRECUENTES</a></li>
+                    <li><a href="https://fintech-escrow-5j0ivhu5q-bernardocervantes-9546s-projects.vercel.app/consufin#:~:text=ESCROW-,AYUDA,-CONTACTANOS" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 hover:text-indigo-600">AYUDA</a></li>
+                    <li><a href="https://fintech-escrow-5j0ivhu5q-bernardocervantes-9546s-projects.vercel.app/consufin#:~:text=AYUDA-,CONTACTANOS,-Login%20/%20Registro" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-600 hover:text-indigo-600">CONTACTANOS</a></li>
                   </ul>
                 </div>
               </div>
@@ -574,9 +573,9 @@ export class ConsufinHomeComponent {
 
   teamMembers = [
     {
-      name: 'Leslie Alexander',
-      role: 'Co-Fundador / CEO',
-      imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+      name: 'Alejandro Armendariz',
+      role: 'Fundador / CEO',
+      imageUrl: '/assets/images/alejandro-armendariz.jpg' // TODO: Reemplazar con la URL de la imagen subida
     },
     {
       name: 'Michael Foster',

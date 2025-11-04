@@ -1,67 +1,74 @@
-# 🚀 DESPLEGAR A VERCEL AHORA
+# 🚀 DESPLEGAR EN VERCEL - INSTRUCCIONES INMEDIATAS
 
-## 📋 OPCIÓN 1: Desde el Dashboard de Vercel (Más Fácil)
+## ✅ PASOS RÁPIDOS
 
-### Pasos:
-
-1. **Abre tu navegador:**
-   ```
-   https://vercel.com/dashboard
-   ```
-
-2. **Si ya tienes el proyecto:**
-   - Vercel detectará automáticamente el nuevo push
-   - Se iniciará un deployment automático
-   - Espera 2-5 minutos
-
-3. **Si NO tienes el proyecto:**
-   - Click en **"Add New Project"**
-   - Selecciona: **`chikhual/fintech-escrow`**
-   - Click en **"Import"**
-   
-   **Configuración:**
-   - **Framework Preset:** Angular (o detectar automáticamente)
-   - **Root Directory:** `frontend-angular` ⚠️ IMPORTANTE
-   - **Build Command:** `npm run build` (por defecto)
-   - **Output Directory:** `dist/frontend-angular/browser` (por defecto)
-   - **Install Command:** `npm ci` (por defecto)
-   
-   - Click en **"Deploy"**
-
----
-
-## 📋 OPCIÓN 2: Desde Terminal (Vercel CLI)
-
-Si prefieres usar la terminal, ejecuta:
-
-```bash
-cd frontend-angular
-vercel --prod
+### 1. Ve al Dashboard de Vercel
+```
+https://vercel.com/dashboard
 ```
 
-Sigue las instrucciones en pantalla.
+### 2. Si es proyecto NUEVO:
+- Click en **"Add New Project"** o **"New"**
+- Selecciona: **`chikhual/fintech-escrow`**
+- Click en **"Import"**
+
+### 3. Si es proyecto EXISTENTE:
+- Selecciona el proyecto **`fintech-escrow`**
+- Click en **"Deployments"**
+- Click en **"Redeploy"** (o espera a que se despliegue automáticamente)
+
+### 4. Configuración (SOLO si es proyecto nuevo):
+
+**⚠️ IMPORTANTE - Root Directory:**
+```
+frontend-angular
+```
+
+**Framework:** Angular (o Auto-detect)
+
+**Build Settings:**
+- Build Command: `npm run build` (ya en vercel.json)
+- Output Directory: `dist/frontend-angular/browser` (ya en vercel.json)
+- Install Command: `npm ci` (ya en vercel.json)
+
+### 5. Click en "Deploy"
 
 ---
 
-## ✅ Después del Despliegue
+## 🌐 DESPUÉS DEL DESPLIEGUE
 
-Vercel te dará URLs como:
+Vercel te dará una URL como:
+```
+https://fintech-escrow-xyz123.vercel.app
+```
 
-### URLs de Producción:
-- **Base:** `https://tu-proyecto.vercel.app`
-- **Broker:** `https://tu-proyecto.vercel.app/broker-portal`
-- **Usuario Dual:** `https://tu-proyecto.vercel.app/user-portal`
-
----
-
-## 🎯 Verificación
-
-Una vez desplegado, verifica:
-1. ✅ `https://tu-proyecto.vercel.app/broker-portal` carga correctamente
-2. ✅ `https://tu-proyecto.vercel.app/user-portal` carga correctamente
-3. ✅ No hay errores en la consola del navegador
+### URLs Específicas:
+- **Página Principal:** `https://tu-proyecto.vercel.app/consufin`
+- **Marketplace:** `https://tu-proyecto.vercel.app/consufin/marketplace`
+- **Portal Usuario:** `https://tu-proyecto.vercel.app/user-portal`
+- **Portal Broker:** `https://tu-proyecto.vercel.app/broker-portal`
 
 ---
 
-¡Listo para desplegar! 🚀
+## ✅ VERIFICACIÓN
 
+Después de desplegar, verifica:
+1. ✅ Build completó sin errores
+2. ✅ Página principal carga (`/consufin`)
+3. ✅ Marketplace funciona (`/consufin/marketplace`)
+4. ✅ Portales cargan correctamente
+
+---
+
+## 🔧 SI HAY PROBLEMAS
+
+### Build Failed:
+- Verifica que Root Directory sea `frontend-angular`
+- Revisa los logs de build en Vercel
+
+### 404 en rutas:
+- Verifica que `rewrites` esté en vercel.json (✅ ya configurado)
+
+---
+
+**¡Listo para desplegar! 🚀**
