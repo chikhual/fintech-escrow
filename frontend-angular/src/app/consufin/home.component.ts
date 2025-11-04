@@ -19,12 +19,12 @@ import { RouterModule } from '@angular/router';
             <h1 class="text-xl font-bold text-gray-900">CONSUFIN</h1>
           </div>
           <nav class="hidden lg:flex items-center gap-4 text-sm">
-              <a routerLink="/consufin/usuario" class="text-gray-600 hover:text-gray-900">Usuario</a>
-            <a routerLink="/consufin/transacciones" class="text-gray-600 hover:text-gray-900">Mis transacciones</a>
-            <a routerLink="/consufin/integraciones" class="text-gray-600 hover:text-gray-900">Integraciones</a>
-            <a routerLink="/consufin/validacion" class="text-gray-600 hover:text-gray-900">Validación KYC</a>
-            <a routerLink="/consufin/ayuda" class="text-gray-600 hover:text-gray-900">Ayuda</a>
-            <a routerLink="/consufin/contacto" class="text-gray-600 hover:text-gray-900">Contáctanos</a>
+            <a href="https://www.consufin.com.mx/#/Cotizar" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-gray-900">PRESTAMOS</a>
+            <a routerLink="/consufin/calculadora" class="text-gray-600 hover:text-gray-900">CALCULADORA</a>
+            <a routerLink="/consufin/marketplace" class="text-gray-600 hover:text-gray-900">MARKETPLACE</a>
+            <a routerLink="/consufin/transaccion/nueva" class="text-gray-600 hover:text-gray-900">ESCROW</a>
+            <a routerLink="/consufin/ayuda" class="text-gray-600 hover:text-gray-900">AYUDA</a>
+            <a routerLink="/consufin/contacto" class="text-gray-600 hover:text-gray-900">CONTACTANOS</a>
             <a routerLink="/consufin/registro" class="ml-2 inline-block px-3 py-1.5 bg-indigo-600 text-white rounded">Login / Registro</a>
           </nav>
         </div>
@@ -41,12 +41,12 @@ import { RouterModule } from '@angular/router';
               </button>
             </div>
             <nav class="mt-6 space-y-2 text-base">
-                <a (click)="mobileOpen=false" routerLink="/consufin/usuario" class="block rounded px-3 py-2 hover:bg-gray-50">Usuario</a>
-              <a (click)="mobileOpen=false" routerLink="/consufin/transacciones" class="block rounded px-3 py-2 hover:bg-gray-50">Mis transacciones</a>
-              <a (click)="mobileOpen=false" routerLink="/consufin/integraciones" class="block rounded px-3 py-2 hover:bg-gray-50">Integraciones</a>
-              <a (click)="mobileOpen=false" routerLink="/consufin/validacion" class="block rounded px-3 py-2 hover:bg-gray-50">Validación KYC</a>
-              <a (click)="mobileOpen=false" routerLink="/consufin/ayuda" class="block rounded px-3 py-2 hover:bg-gray-50">Ayuda</a>
-              <a (click)="mobileOpen=false" routerLink="/consufin/contacto" class="block rounded px-3 py-2 hover:bg-gray-50">Contáctanos</a>
+              <a (click)="mobileOpen=false" href="https://www.consufin.com.mx/#/Cotizar" target="_blank" rel="noopener noreferrer" class="block rounded px-3 py-2 hover:bg-gray-50">PRESTAMOS</a>
+              <a (click)="mobileOpen=false" routerLink="/consufin/calculadora" class="block rounded px-3 py-2 hover:bg-gray-50">CALCULADORA</a>
+              <a (click)="mobileOpen=false" routerLink="/consufin/marketplace" class="block rounded px-3 py-2 hover:bg-gray-50">MARKETPLACE</a>
+              <a (click)="mobileOpen=false" routerLink="/consufin/transaccion/nueva" class="block rounded px-3 py-2 hover:bg-gray-50">ESCROW</a>
+              <a (click)="mobileOpen=false" routerLink="/consufin/ayuda" class="block rounded px-3 py-2 hover:bg-gray-50">AYUDA</a>
+              <a (click)="mobileOpen=false" routerLink="/consufin/contacto" class="block rounded px-3 py-2 hover:bg-gray-50">CONTACTANOS</a>
               <a (click)="mobileOpen=false" routerLink="/consufin/registro" class="block rounded px-3 py-2 bg-indigo-600 text-white text-center">Login / Registro</a>
             </nav>
           </div>

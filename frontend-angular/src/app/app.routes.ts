@@ -27,6 +27,7 @@ import { QuickAccessComponent } from './consufin/quick-access.component';
 import { DirectAccessComponent } from './consufin/direct-access.component';
 import { BrokerPortalComponent } from './consufin/broker-portal.component';
 import { UserDualPortalComponent } from './consufin/user-dual-portal.component';
+import { MarketplaceComponent } from './consufin/marketplace.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'consufin' },
@@ -46,6 +47,7 @@ export const routes: Routes = [
   { path: 'consufin/transaccion/disputa', component: ConsufinDisputeComponent },
   { path: 'consufin/transacciones', component: ConsufinListComponent },
   { path: 'consufin/calculadora', component: ConsufinCalculatorComponent },
+  { path: 'consufin/marketplace', component: MarketplaceComponent },
   { path: 'consufin/faq', component: ConsufinFaqComponent },
   { path: 'consufin/ayuda', component: ConsufinHelpComponent },
   { path: 'consufin/contacto', component: ConsufinContactComponent },
