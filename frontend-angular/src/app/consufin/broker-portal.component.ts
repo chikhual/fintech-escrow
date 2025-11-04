@@ -282,7 +282,7 @@ interface QuickAction {
             <nav class="flex overflow-x-auto">
               <button
                 *ngFor="let section of sections"
-                (click)="activeSection = section.id"
+                (click)="activeSection = section.id as ActiveSection"
                 [ngClass]="activeSection === section.id 
                   ? 'border-b-2 border-indigo-600 text-indigo-600 font-semibold bg-indigo-50' 
                   : 'text-gray-600 hover:bg-gray-50'"

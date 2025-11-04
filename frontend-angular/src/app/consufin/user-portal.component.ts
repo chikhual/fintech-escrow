@@ -3,7 +3,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { UserService } from '../services/user.service';
+import { UserService, CompanyData } from '../services/user.service';
 import { TransactionService, EscrowTransaction } from '../services/transaction.service';
 import { NotificationService, Notification } from '../services/notification.service';
 import { WebSocketService } from '../services/websocket.service';
@@ -1548,7 +1548,13 @@ export class UserPortalComponent implements OnInit, OnDestroy {
 
   saveCompany() {
     this.loading = true;
-    this.userService.updateCompanyData(this.companyData)
+    const companyDataToSend: CompanyData = {
+      broker_business_name: this.companyData.businessName,
+      broker_business_rfc: this.companyData.businessRfc,
+      broker_business_type: this.companyData.businessType,
+      broker_years_experience: this.companyData.yearsExperience
+    };
+    this.userService.updateCompanyData(companyDataToSend)
       .pipe(
         takeUntil(this.destroy$),
         catchError(error => {
@@ -1646,9 +1652,10 @@ export class UserPortalComponent implements OnInit, OnDestroy {
         catchError(() => of([]))
       )
       .subscribe(transactions => {
-        this.searchResults = transactions
-          .filter(t => t.status === 'pending_agreement')
-          .map(t => ({
+        const items = Array.isArray(transactions) ? transactions : (transactions as any).items || [];
+        this.searchResults = items
+          .filter((t: EscrowTransaction) => t.status === 'pending_agreement')
+          .map((t: EscrowTransaction) => ({
             title: t.item_title,
             seller: 'Usuario', // TODO: Get seller name
             price: t.price,
@@ -1661,7 +1668,10 @@ export class UserPortalComponent implements OnInit, OnDestroy {
     this.notificationService.markAsRead(notificationId)
       .pipe(
         takeUntil(this.destroy$),
-        catchError(error => console.error('Error marking notification as read:', error))
+        catchError(error => {
+          console.error('Error marking notification as read:', error);
+          return of(null);
+        })
       )
       .subscribe(() => {
         const notif = this.allNotifications.find(n => n.id === notificationId);
