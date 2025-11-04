@@ -132,10 +132,13 @@ class User(Base):
     last_login = Column(DateTime(timezone=True))
     
     # Relationships
-    escrow_transactions_as_buyer = relationship("EscrowTransaction", foreign_keys="EscrowTransaction.buyer_id", back_populates="buyer")
-    escrow_transactions_as_seller = relationship("EscrowTransaction", foreign_keys="EscrowTransaction.seller_id", back_populates="seller")
-    documents = relationship("Document", back_populates="user")
-    notifications = relationship("Notification", back_populates="user")
+    # Note: EscrowTransaction relationships are defined in escrow_service/models.py
+    # to avoid circular imports. These relationships are commented here but work
+    # when both modules are loaded together.
+    # escrow_transactions_as_buyer = relationship("EscrowTransaction", foreign_keys="EscrowTransaction.buyer_id", back_populates="buyer")
+    # escrow_transactions_as_seller = relationship("EscrowTransaction", foreign_keys="EscrowTransaction.seller_id", back_populates="seller")
+    documents = relationship("Document", foreign_keys="[Document.user_id]", back_populates="user")
+    notifications = relationship("Notification", foreign_keys="[Notification.user_id]", back_populates="user")
 
 
 class Document(Base):
@@ -165,7 +168,7 @@ class Document(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
     # Relationships
-    user = relationship("User", back_populates="documents")
+    user = relationship("User", foreign_keys=[user_id], back_populates="documents")
     verifier = relationship("User", foreign_keys=[verified_by])
 
 

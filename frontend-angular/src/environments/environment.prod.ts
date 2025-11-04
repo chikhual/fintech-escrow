@@ -6,5 +6,8 @@ export const environment = {
   // Default values for local build testing
   apiUrl: 'https://your-backend-url.railway.app',
   authApiUrl: 'https://your-backend-url.railway.app',
+  escrowApiUrl: 'https://your-backend-url.railway.app',
+  paymentApiUrl: 'https://your-backend-url.railway.app',
+  notificationApiUrl: 'https://your-backend-url.railway.app',
   wsUrl: 'wss://your-backend-url.railway.app/ws'
 };

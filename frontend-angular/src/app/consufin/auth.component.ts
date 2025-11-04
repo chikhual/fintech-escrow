@@ -252,11 +252,17 @@ export class ConsufinAuthComponent {
   }
 
   login(): void {
-    if (!this.isLoginValid() || this.loading) return;
+    if (!this.isLoginValid() || this.loading) {
+      console.log('⚠️ Login blocked - invalid form or already loading');
+      return;
+    }
 
     this.loading = true;
     this.errorMessage = '';
     this.successMessage = '';
+
+    console.log('🚀 Starting login process...');
+    console.log('📧 Email:', this.loginEmail);
 
     const loginData: LoginRequest = {
       email: this.loginEmail,
@@ -264,16 +270,37 @@ export class ConsufinAuthComponent {
     };
 
     this.authService.login(loginData).subscribe({
-      next: () => {
+      next: (response) => {
+        console.log('✅ Login response received:', response);
         this.loading = false;
         this.successMessage = '¡Inicio de sesión exitoso!';
         // Navigation handled by auth service
       },
       error: (err) => {
         this.loading = false;
-        console.error('Login error:', err);
-        const errorDetail = err.error?.detail || err.error?.message || err.message || 'Error desconocido';
-        this.errorMessage = `Error al iniciar sesión: ${errorDetail}. Verifica tus credenciales y que el backend esté corriendo.`;
+        console.error('❌ Login error in component:', err);
+        console.error('   Error type:', err.constructor.name);
+        console.error('   Error status:', err.status);
+        console.error('   Error message:', err.message);
+        
+        let errorDetail = 'Error desconocido';
+        
+        if (err.name === 'TimeoutError' || err.message?.includes('timeout')) {
+          errorDetail = 'Timeout: El servidor no respondió a tiempo. Verifica que el backend esté corriendo en http://localhost:8001';
+        } else if (err.status === 0) {
+          errorDetail = 'Error de conexión: No se pudo conectar al servidor. Verifica que el backend esté corriendo y que no haya problemas de CORS.';
+        } else if (err.status === 401) {
+          errorDetail = 'Credenciales incorrectas. Verifica tu email y contraseña.';
+        } else if (err.status === 404) {
+          errorDetail = 'Endpoint no encontrado. Verifica la URL del backend.';
+        } else if (err.status >= 500) {
+          errorDetail = 'Error del servidor. Revisa los logs del backend.';
+        } else {
+          errorDetail = err.error?.detail || err.error?.message || err.message || 'Error desconocido';
+        }
+        
+        this.errorMessage = `Error al iniciar sesión: ${errorDetail}`;
+        console.error('💬 Error message shown to user:', this.errorMessage);
       }
     });
   }

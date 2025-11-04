@@ -186,10 +186,60 @@ async def login_user(login_data: UserLogin, db: Session = Depends(get_db)):
 
 
 @app.post("/refresh", response_model=Token)
-async def refresh_token(refresh_token: str, db: Session = Depends(get_db)):
+async def refresh_token(
+    request: dict,
+    db: Session = Depends(get_db)
+):
     """Refresh access token using refresh token"""
-    # TODO: Implement refresh token logic
-    pass
+    from shared.auth import verify_token, create_access_token, create_refresh_token
+    
+    refresh_token_value = request.get("refresh_token")
+    if not refresh_token_value:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Refresh token is required"
+        )
+    
+    # Verify refresh token
+    try:
+        token_data = verify_token(refresh_token_value, token_type="refresh")
+    except HTTPException:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired refresh token"
+        )
+    
+    # Get user from database
+    user = db.query(User).filter(User.id == token_data.user_id).first()
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    
+    # Check if user is active
+    user_status = user.status.value if hasattr(user.status, 'value') else str(user.status)
+    blocked_statuses = [UserStatus.SUSPENDED.value, UserStatus.INACTIVE.value, UserStatus.VERIFICATION_FAILED.value]
+    if user_status in blocked_statuses:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"User account is blocked. Current status: {user_status}."
+        )
+    
+    # Create new tokens
+    access_token = create_access_token(
+        data={"sub": str(user.id), "email": user.email, "role": user.role.value}
+    )
+    new_refresh_token = create_refresh_token(
+        data={"sub": str(user.id), "email": user.email}
+    )
+    
+    return Token(
+        access_token=access_token,
+        token_type="bearer",
+        expires_in=30 * 60,  # 30 minutes
+        refresh_token=new_refresh_token
+    )
 
 
 @app.get("/me", response_model=UserResponse)

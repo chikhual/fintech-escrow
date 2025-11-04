@@ -23,6 +23,8 @@ import { RegistrationSelectionComponent } from './consufin/registration-selectio
 import { RegistrationWizardComponent } from './consufin/registration-wizard.component';
 import { InternalAccessComponent } from './consufin/internal-access.component';
 import { VerificationDashboardComponent } from './consufin/verification-dashboard.component';
+import { QuickAccessComponent } from './consufin/quick-access.component';
+import { DirectAccessComponent } from './consufin/direct-access.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'consufin' },
@@ -51,5 +53,7 @@ export const routes: Routes = [
   { path: 'consufin/roles', component: RoleCenterComponent },
   { path: 'consufin/usuario', component: UserPortalComponent },
   { path: 'consufin/comprador', redirectTo: 'consufin/usuario', pathMatch: 'full' }, // Redirect old route
+  { path: 'consufin/acceso-rapido', component: QuickAccessComponent }, // Acceso directo para desarrollo
+  { path: 'portal', component: DirectAccessComponent }, // Acceso externo directo - URL independiente
   { path: '**', redirectTo: 'consufin' }
 ];
