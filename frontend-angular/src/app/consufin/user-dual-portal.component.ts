@@ -118,7 +118,7 @@ interface Transaction {
             <div class="flex items-center justify-between">
               <div>
                 <h2 class="text-lg font-semibold text-gray-900">
-                  {{ sections.find(s => s.id === activeSection)?.icon }} {{ sections.find(s => s.id === activeSection)?.label }}
+                  {{ getActiveSectionIcon() }} {{ getActiveSectionLabel() }}
                 </h2>
               </div>
               <div class="flex items-center gap-4">
@@ -636,6 +636,16 @@ export class UserDualPortalComponent implements OnInit {
       'pending': 'bg-gray-100 text-gray-800'
     };
     return statusClasses[status] || 'bg-gray-100 text-gray-800';
+  }
+
+  getActiveSectionIcon(): string {
+    const section = this.sections.find(s => s.id === this.activeSection);
+    return section?.icon || '🏠';
+  }
+
+  getActiveSectionLabel(): string {
+    const section = this.sections.find(s => s.id === this.activeSection);
+    return section?.label || 'Dashboard';
   }
 
   logout() {
