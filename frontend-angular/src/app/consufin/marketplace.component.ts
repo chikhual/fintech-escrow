@@ -79,7 +79,7 @@ interface Category {
               Compra y Vende con Total Seguridad
             </h1>
             <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Miles de productos protegidos por ESCROW. Transacciones verificadas y seguras.
+              Miles de productos protegidos por CONSUFIN. Transacciones verificadas y seguras.
             </p>
             
             <!-- Search Bar -->
