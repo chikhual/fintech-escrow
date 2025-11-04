@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/frontend-angular/browser",
-  "installCommand": "npm ci",
+  "buildCommand": "cd frontend-angular && npm ci && npm run build",
+  "outputDirectory": "frontend-angular/dist/frontend-angular/browser",
+  "installCommand": "cd frontend-angular && npm ci",
   "framework": null,
   "rewrites": [
     {
