@@ -171,16 +171,24 @@ import { RouterModule } from '@angular/router';
                 <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-black/5"></div>
               </div>
 
-              <!-- Cargas masivas -->
+              <!-- Marketplace -->
               <div class="relative lg:col-start-2 lg:row-start-2">
                 <div class="absolute inset-px rounded-lg bg-white"></div>
                 <div class="relative flex h-full flex-col overflow-hidden rounded-lg">
                   <div class="px-8 pt-8 sm:px-10 sm:pt-10">
-                    <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">CARGAS MASIVAS</p>
-                    <p class="mt-2 max-w-lg text-sm text-gray-600 text-center lg:text-left">Plantillas precreadas para altas de múltiples productos/servicios.</p>
+                    <p class="mt-2 text-lg font-medium tracking-tight text-gray-900 text-center lg:text-left">MARKETPLACE</p>
+                    <p class="mt-2 max-w-lg text-sm text-gray-600 text-center lg:text-left">
+                      Plataforma de Promoción, Compra y Venta de Miles de productos protegidos por CONSUFIN. COMPRA con Transacciones verificadas y seguras.
+                    </p>
                   </div>
-                  <div class="flex flex-1 items-center justify-center py-6 lg:pb-2">
-                    <img alt="" src="https://tailwindcss.com/plus-assets/img/component-images/bento-03-security.png" class="h-[152px] object-cover" />
+                  <div class="flex flex-1 items-center justify-center px-8 sm:px-10 pb-6 lg:pb-2">
+                    <a 
+                      href="https://fintech-escrow-bmbc90b2s-bernardocervantes-9546s-projects.vercel.app/consufin/marketplace"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition text-center">
+                      🛒 IR A MARKETPLACE
+                    </a>
                   </div>
                 </div>
                 <div class="pointer-events-none absolute inset-px rounded-lg shadow-sm outline outline-black/5"></div>
