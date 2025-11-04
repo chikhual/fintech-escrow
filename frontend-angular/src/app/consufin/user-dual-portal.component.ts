@@ -221,7 +221,7 @@ interface Transaction {
             <nav class="flex overflow-x-auto">
               <button
                 *ngFor="let section of sections"
-                (click)="activeSection = section.id as ActiveSection"
+                (click)="setActiveSection(section.id)"
                 [ngClass]="activeSection === section.id 
                   ? 'border-b-2 border-indigo-600 text-indigo-600 font-semibold bg-indigo-50' 
                   : 'text-gray-600 hover:bg-gray-50'"
@@ -558,7 +558,7 @@ export class UserDualPortalComponent implements OnInit {
 
   allNotifications: Notification[] = [...this.recentNotifications];
 
-  sections = [
+  sections: Array<{ id: ActiveSection; label: string; icon: string }> = [
     { id: 'dashboard', label: 'Dashboard', icon: '🏠' },
     { id: 'transacciones', label: 'Transacciones', icon: '📦' },
     { id: 'ventas', label: 'Ventas', icon: '🏪' },
@@ -568,6 +568,10 @@ export class UserDualPortalComponent implements OnInit {
     { id: 'documentos', label: 'Documentos', icon: '📁' },
     { id: 'configuracion', label: 'Configuración', icon: '⚙️' }
   ];
+
+  setActiveSection(id: string) {
+    this.activeSection = id as ActiveSection;
+  }
 
   notificationFilters = [
     { id: 'all', label: 'Todas' },
