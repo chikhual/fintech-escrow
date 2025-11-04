@@ -4,6 +4,7 @@
   "outputDirectory": "dist/frontend-angular/browser",
   "installCommand": "NODE_ENV=development npm ci",
   "framework": null,
+  "nodeVersion": "20.x",
   "rewrites": [
     {
       "source": "/(.*)",
