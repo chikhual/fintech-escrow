@@ -49,7 +49,7 @@ interface Category {
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex items-center justify-between h-16">
             <div class="flex items-center gap-4">
-              <a routerLink="/consufin" class="text-xl font-bold text-gray-900">🏪 CONSUFIN</a>
+              <a routerLink="/consufin" class="text-xl font-bold text-gray-900">CONSUFIN</a>
               <nav class="hidden md:flex items-center gap-4 text-sm">
                 <a routerLink="/consufin/marketplace" class="text-gray-700 hover:text-gray-900 font-medium">Explorar</a>
                 <a href="#categorias" class="text-gray-600 hover:text-gray-900">Categorías</a>
