@@ -156,8 +156,8 @@ interface Transaction {
 
         <!-- Content -->
         <div class="p-6">
-          <!-- Dashboard Summary -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <!-- Dashboard Summary (only on dashboard section) -->
+        <div *ngIf="activeSection === 'dashboard'" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <!-- Como Comprador -->
           <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
