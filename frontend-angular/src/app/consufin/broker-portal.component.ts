@@ -322,6 +322,7 @@ interface QuickAction {
             </button>
             </div>
           </div>
+          </div>
 
           <!-- Transacciones Section -->
           <div *ngIf="activeSection === 'transacciones'" class="space-y-6">
