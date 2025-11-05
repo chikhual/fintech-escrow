@@ -28,6 +28,7 @@ import { DirectAccessComponent } from './consufin/direct-access.component';
 import { BrokerPortalComponent } from './consufin/broker-portal.component';
 import { UserDualPortalComponent } from './consufin/user-dual-portal.component';
 import { MarketplaceComponent } from './consufin/marketplace.component';
+import { AdvisorPortalComponent } from './consufin/advisor-portal.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'consufin' },
@@ -61,5 +62,6 @@ export const routes: Routes = [
   { path: 'portal', component: DirectAccessComponent }, // Acceso externo directo - URL independiente
   { path: 'broker-portal', component: BrokerPortalComponent }, // Portal Broker - Acceso directo independiente
   { path: 'user-portal', component: UserDualPortalComponent }, // Portal Usuario Dual (Comprador/Vendedor) - Acceso directo independiente
+  { path: 'advisor-portal', component: AdvisorPortalComponent }, // Portal Asesor - Acceso directo independiente
   { path: '**', redirectTo: 'consufin' }
 ];
